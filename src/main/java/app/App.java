@@ -468,12 +468,12 @@ public class App extends javax.swing.JFrame {
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         try {
             ObjectMapper om = new ObjectMapper();
-
-            om.writeValue(new File("juego.json"), juego);
-            String jsonInString = om.writeValueAsString(juego);
-            System.out.println(jsonInString);
-            jsonInString = om.writerWithDefaultPrettyPrinter().writeValueAsString(juego);
-            System.out.println(jsonInString);
+            
+            om.writerWithDefaultPrettyPrinter().writeValue(new File("juego.json"), juego);
+//            String jsonInString = om.writeValueAsString(juego);
+//            System.out.println(jsonInString);
+//            jsonInString = om.writerWithDefaultPrettyPrinter().writeValueAsString(juego);
+//            System.out.println(jsonInString);
         } catch (IOException ex) {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -576,12 +576,10 @@ public class App extends javax.swing.JFrame {
 
             new Thread(() -> {
                 // Pause por n segundos mientras se sabe la respuesta correcta
-                for (int i = 0; i < Rules.SEGUNDOS_PAUSE; i++) {
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                try {
+                    Thread.sleep(Rules.PAUSE_SABER_RESPUESTA_CORRECTA * 1000);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 // Pause por n segundos mientras se sabe la respuesta correcta
 
@@ -612,30 +610,31 @@ public class App extends javax.swing.JFrame {
 
                 // Hilo de animación
                 new Thread(() -> {
-                    for (int i = 0; i < 3; i++) {
+                    for (int i = 0; i < Rules.PARPADEOS; i++) {
                         try {
                             if (i % 2 == 0) {
                                 lblRespCorrecta.setBackground(Rules.COLOR_CORRECTA);
                             } else {
                                 lblRespCorrecta.setBackground(color);
                             }
-                            Thread.sleep(100);
+                            Thread.sleep(Rules.VELOCIDAD_PARPADEO);
                         } catch (InterruptedException ex) {
                             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
+                    
+                    // Si parpadeos es par, no quedo con el fondo de la respuesta correcta
+                    if(Rules.PARPADEOS % 2 == 0){
+                        lblRespCorrecta.setBackground(Rules.COLOR_CORRECTA);
+                    }
+                    
+                    try {
+                        Thread.sleep(Rules.PAUSE_ENTRE_PREGUNTAS*1000);
+                        siguientePregunta();
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }).start();
-               
-                
-                
-                try {
-                    Thread.sleep(3000);
-                    siguientePregunta();
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            
-            
             }).start();
         }
     }

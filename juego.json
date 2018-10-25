@@ -1,1 +1,75 @@
-{"preguntas":[{"valor":"¿Cúal es la teleserie más existosa de Canal 13?","respuestas":[{"letra":"a","valor":"Machos","correcta":false},{"letra":"b","valor":"Lola","correcta":false},{"letra":"c","valor":"Pacto de sangre","correcta":true},{"letra":"d","valor":"Ninguna","correcta":false}],"respuestaCorrecta":{"letra":"c","valor":"Pacto de sangre","correcta":true}},{"valor":"¿Cuanto es 2+2?","respuestas":[{"letra":"a","valor":"1","correcta":false},{"letra":"b","valor":"2","correcta":false},{"letra":"c","valor":"3","correcta":false},{"letra":"d","valor":"4","correcta":true}],"respuestaCorrecta":{"letra":"d","valor":"4","correcta":true}}]}
+{
+  "preguntas" : [ {
+    "valor" : "¿Cúal es la teleserie más existosa de Canal 13?",
+    "respuestas" : [ {
+      "letra" : "a",
+      "valor" : "Machos",
+      "correcta" : false
+    }, {
+      "letra" : "b",
+      "valor" : "Lola",
+      "correcta" : false
+    }, {
+      "letra" : "c",
+      "valor" : "Pacto de sangre",
+      "correcta" : true
+    }, {
+      "letra" : "d",
+      "valor" : "Ninguna",
+      "correcta" : false
+    } ],
+    "respuestaCorrecta" : {
+      "letra" : "c",
+      "valor" : "Pacto de sangre",
+      "correcta" : true
+    }
+  }, {
+    "valor" : "¿Cuanto es 2+2?",
+    "respuestas" : [ {
+      "letra" : "a",
+      "valor" : "1",
+      "correcta" : false
+    }, {
+      "letra" : "b",
+      "valor" : "2",
+      "correcta" : false
+    }, {
+      "letra" : "c",
+      "valor" : "3",
+      "correcta" : false
+    }, {
+      "letra" : "d",
+      "valor" : "4",
+      "correcta" : true
+    } ],
+    "respuestaCorrecta" : {
+      "letra" : "d",
+      "valor" : "4",
+      "correcta" : true
+    }
+  }, {
+    "valor" : "¿Cuanto es 3*6?",
+    "respuestas" : [ {
+      "letra" : "a",
+      "valor" : "12",
+      "correcta" : false
+    }, {
+      "letra" : "b",
+      "valor" : "18",
+      "correcta" : true
+    }, {
+      "letra" : "c",
+      "valor" : "9",
+      "correcta" : false
+    }, {
+      "letra" : "d",
+      "valor" : "23",
+      "correcta" : false
+    } ],
+    "respuestaCorrecta" : {
+      "letra" : "b",
+      "valor" : "18",
+      "correcta" : true
+    }
+  } ]
+}
