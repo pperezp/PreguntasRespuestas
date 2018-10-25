@@ -14,19 +14,15 @@ import javax.swing.JOptionPane;
 import model.Juego;
 import model.Pregunta;
 import model.Respuesta;
+import model.Rules;
 
 public class App extends javax.swing.JFrame {
 
-    private final Color colorFondo;
-    private final Color colorLetras;
-    private final Color colorFondoPreguntas;
-    private final Color colorCorrecta;
-    private final int segundosPause;
+    
     private boolean yaJugo;
     private Pregunta preguntaActual;
     private String letraRespuestaCorrecta; // la utilizo cuando creo una pregunta
-    private final String TITULO_APP = "Millionaire";
-    private final String VERSION_APP = "0.1a";
+    
 
     private Juego juego;
     private int indexPregunta;
@@ -34,20 +30,13 @@ public class App extends javax.swing.JFrame {
     public App() {
         initComponents();
 
-        segundosPause = 2;
-
-        colorFondo = Color.decode("#000434");
-        colorLetras = Color.decode("#FFB900");
-        colorFondoPreguntas = Color.decode("#3B2F83");
-        colorCorrecta = Color.decode("#00B500");
-
         initColores();
         this.setLocationRelativeTo(null);
         yaJugo = false;
 //        jMenuBar1.setVisible(false);
 
-        this.setTitle(TITULO_APP + " - " + VERSION_APP);
-        formCrearPregunta.setTitle(TITULO_APP + " - " + VERSION_APP);
+        this.setTitle(Rules.NOMBRE_APP + " - " + Rules.VERSION_APP);
+        formCrearPregunta.setTitle(Rules.NOMBRE_APP + " - " + Rules.VERSION_APP);
 
         juego = new Juego();
         indexPregunta = 0;
@@ -458,10 +447,10 @@ public class App extends javax.swing.JFrame {
             txtRespCCrearPreg.setText(null);
             txtRespDCrearPreg.setText(null);
 
-            txtRespACrearPreg.setBackground(colorFondoPreguntas);
-            txtRespBCrearPreg.setBackground(colorFondoPreguntas);
-            txtRespCCrearPreg.setBackground(colorFondoPreguntas);
-            txtRespDCrearPreg.setBackground(colorFondoPreguntas);
+            txtRespACrearPreg.setBackground(Rules.COLOR_FONDO_PREGUNTAS);
+            txtRespBCrearPreg.setBackground(Rules.COLOR_FONDO_PREGUNTAS);
+            txtRespCCrearPreg.setBackground(Rules.COLOR_FONDO_PREGUNTAS);
+            txtRespDCrearPreg.setBackground(Rules.COLOR_FONDO_PREGUNTAS);
 
             txtPregunta.requestFocus();
             /*Limpieza de formulario*/
@@ -530,45 +519,45 @@ public class App extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void initColores() {
-        panelFondo.setBackground(colorFondo);
+        panelFondo.setBackground(Rules.COLOR_FONDO);
 
-        lblA.setBackground(colorFondoPreguntas);
-        lblB.setBackground(colorFondoPreguntas);
-        lblC.setBackground(colorFondoPreguntas);
-        lblD.setBackground(colorFondoPreguntas);
+        lblA.setBackground(Rules.COLOR_FONDO_PREGUNTAS);
+        lblB.setBackground(Rules.COLOR_FONDO_PREGUNTAS);
+        lblC.setBackground(Rules.COLOR_FONDO_PREGUNTAS);
+        lblD.setBackground(Rules.COLOR_FONDO_PREGUNTAS);
 
-        lblA.setForeground(colorLetras);
-        lblB.setForeground(colorLetras);
-        lblC.setForeground(colorLetras);
-        lblD.setForeground(colorLetras);
+        lblA.setForeground(Rules.COLOR_LETRAS);
+        lblB.setForeground(Rules.COLOR_LETRAS);
+        lblC.setForeground(Rules.COLOR_LETRAS);
+        lblD.setForeground(Rules.COLOR_LETRAS);
 
-        lblRespA.setBackground(colorFondoPreguntas);
-        lblRespB.setBackground(colorFondoPreguntas);
-        lblRespC.setBackground(colorFondoPreguntas);
-        lblRespD.setBackground(colorFondoPreguntas);
+        lblRespA.setBackground(Rules.COLOR_FONDO_PREGUNTAS);
+        lblRespB.setBackground(Rules.COLOR_FONDO_PREGUNTAS);
+        lblRespC.setBackground(Rules.COLOR_FONDO_PREGUNTAS);
+        lblRespD.setBackground(Rules.COLOR_FONDO_PREGUNTAS);
 
-        lblPregunta.setBackground(colorFondoPreguntas);
+        lblPregunta.setBackground(Rules.COLOR_FONDO_PREGUNTAS);
 
         /*Formulario preguntas*/
-        panelFondoCrearPreguntas.setBackground(colorFondo);
-        txtPregunta.setBackground(colorFondoPreguntas);
+        panelFondoCrearPreguntas.setBackground(Rules.COLOR_FONDO);
+        txtPregunta.setBackground(Rules.COLOR_FONDO_PREGUNTAS);
 
-        lblACrearPreg.setBackground(colorFondoPreguntas);
-        lblBCrearPreg.setBackground(colorFondoPreguntas);
-        lblCCrearPreg.setBackground(colorFondoPreguntas);
-        lblDCrearPreg.setBackground(colorFondoPreguntas);
+        lblACrearPreg.setBackground(Rules.COLOR_FONDO_PREGUNTAS);
+        lblBCrearPreg.setBackground(Rules.COLOR_FONDO_PREGUNTAS);
+        lblCCrearPreg.setBackground(Rules.COLOR_FONDO_PREGUNTAS);
+        lblDCrearPreg.setBackground(Rules.COLOR_FONDO_PREGUNTAS);
 
-        lblACrearPreg.setForeground(colorLetras);
-        lblBCrearPreg.setForeground(colorLetras);
-        lblCCrearPreg.setForeground(colorLetras);
-        lblDCrearPreg.setForeground(colorLetras);
+        lblACrearPreg.setForeground(Rules.COLOR_LETRAS);
+        lblBCrearPreg.setForeground(Rules.COLOR_LETRAS);
+        lblCCrearPreg.setForeground(Rules.COLOR_LETRAS);
+        lblDCrearPreg.setForeground(Rules.COLOR_LETRAS);
 
-        txtRespACrearPreg.setBackground(colorFondoPreguntas);
-        txtRespBCrearPreg.setBackground(colorFondoPreguntas);
-        txtRespCCrearPreg.setBackground(colorFondoPreguntas);
-        txtRespDCrearPreg.setBackground(colorFondoPreguntas);
+        txtRespACrearPreg.setBackground(Rules.COLOR_FONDO_PREGUNTAS);
+        txtRespBCrearPreg.setBackground(Rules.COLOR_FONDO_PREGUNTAS);
+        txtRespCCrearPreg.setBackground(Rules.COLOR_FONDO_PREGUNTAS);
+        txtRespDCrearPreg.setBackground(Rules.COLOR_FONDO_PREGUNTAS);
 
-        btnRegistrarPregunta.setBackground(colorCorrecta);
+        btnRegistrarPregunta.setBackground(Rules.COLOR_CORRECTA);
         btnRegistrarPregunta.setForeground(Color.white);
 
         txtRespACrearPreg.setCaretColor(Color.white);
@@ -582,12 +571,12 @@ public class App extends javax.swing.JFrame {
 
     private void responder(String letra, JLabel lblResp) {
         if (!yaJugo) {
-            lblResp.setBackground(colorLetras);
+            lblResp.setBackground(Rules.COLOR_LETRAS);
             yaJugo = true;
 
             new Thread(() -> {
                 // Pause por n segundos mientras se sabe la respuesta correcta
-                for (int i = 0; i < segundosPause; i++) {
+                for (int i = 0; i < Rules.SEGUNDOS_PAUSE; i++) {
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException ex) {
@@ -603,9 +592,9 @@ public class App extends javax.swing.JFrame {
 
                 if (isRespCor) {
                     lblRespCorrecta = lblResp;
-                    color = colorLetras;
+                    color = Rules.COLOR_LETRAS;
                 } else {
-                    color = colorFondo;
+                    color = Rules.COLOR_FONDO;
                     switch (correcta.getLetra()) {
                         case "a":
                             lblRespCorrecta = lblRespA;
@@ -626,7 +615,7 @@ public class App extends javax.swing.JFrame {
                     for (int i = 0; i < 3; i++) {
                         try {
                             if (i % 2 == 0) {
-                                lblRespCorrecta.setBackground(colorCorrecta);
+                                lblRespCorrecta.setBackground(Rules.COLOR_CORRECTA);
                             } else {
                                 lblRespCorrecta.setBackground(color);
                             }
@@ -653,10 +642,10 @@ public class App extends javax.swing.JFrame {
 
     private void setPreguntaInGUI(Pregunta p) {
         yaJugo = false;
-        lblRespA.setBackground(colorFondoPreguntas);
-        lblRespB.setBackground(colorFondoPreguntas);
-        lblRespC.setBackground(colorFondoPreguntas);
-        lblRespD.setBackground(colorFondoPreguntas);
+        lblRespA.setBackground(Rules.COLOR_FONDO_PREGUNTAS);
+        lblRespB.setBackground(Rules.COLOR_FONDO_PREGUNTAS);
+        lblRespC.setBackground(Rules.COLOR_FONDO_PREGUNTAS);
+        lblRespD.setBackground(Rules.COLOR_FONDO_PREGUNTAS);
         
         lblPregunta.setText("<html><center>" + p.getValor() + "</center></html>");
 
@@ -670,28 +659,28 @@ public class App extends javax.swing.JFrame {
         letraRespuestaCorrecta = letra;
         switch (letra) {
             case "a":
-                txtRespACrearPreg.setBackground(colorCorrecta);
-                txtRespBCrearPreg.setBackground(colorFondoPreguntas);
-                txtRespCCrearPreg.setBackground(colorFondoPreguntas);
-                txtRespDCrearPreg.setBackground(colorFondoPreguntas);
+                txtRespACrearPreg.setBackground(Rules.COLOR_CORRECTA);
+                txtRespBCrearPreg.setBackground(Rules.COLOR_FONDO_PREGUNTAS);
+                txtRespCCrearPreg.setBackground(Rules.COLOR_FONDO_PREGUNTAS);
+                txtRespDCrearPreg.setBackground(Rules.COLOR_FONDO_PREGUNTAS);
                 break;
             case "b":
-                txtRespACrearPreg.setBackground(colorFondoPreguntas);
-                txtRespBCrearPreg.setBackground(colorCorrecta);
-                txtRespCCrearPreg.setBackground(colorFondoPreguntas);
-                txtRespDCrearPreg.setBackground(colorFondoPreguntas);
+                txtRespACrearPreg.setBackground(Rules.COLOR_FONDO_PREGUNTAS);
+                txtRespBCrearPreg.setBackground(Rules.COLOR_CORRECTA);
+                txtRespCCrearPreg.setBackground(Rules.COLOR_FONDO_PREGUNTAS);
+                txtRespDCrearPreg.setBackground(Rules.COLOR_FONDO_PREGUNTAS);
                 break;
             case "c":
-                txtRespACrearPreg.setBackground(colorFondoPreguntas);
-                txtRespBCrearPreg.setBackground(colorFondoPreguntas);
-                txtRespCCrearPreg.setBackground(colorCorrecta);
-                txtRespDCrearPreg.setBackground(colorFondoPreguntas);
+                txtRespACrearPreg.setBackground(Rules.COLOR_FONDO_PREGUNTAS);
+                txtRespBCrearPreg.setBackground(Rules.COLOR_FONDO_PREGUNTAS);
+                txtRespCCrearPreg.setBackground(Rules.COLOR_CORRECTA);
+                txtRespDCrearPreg.setBackground(Rules.COLOR_FONDO_PREGUNTAS);
                 break;
             default:
-                txtRespACrearPreg.setBackground(colorFondoPreguntas);
-                txtRespBCrearPreg.setBackground(colorFondoPreguntas);
-                txtRespCCrearPreg.setBackground(colorFondoPreguntas);
-                txtRespDCrearPreg.setBackground(colorCorrecta);
+                txtRespACrearPreg.setBackground(Rules.COLOR_FONDO_PREGUNTAS);
+                txtRespBCrearPreg.setBackground(Rules.COLOR_FONDO_PREGUNTAS);
+                txtRespCCrearPreg.setBackground(Rules.COLOR_FONDO_PREGUNTAS);
+                txtRespDCrearPreg.setBackground(Rules.COLOR_CORRECTA);
         }
     }
 
