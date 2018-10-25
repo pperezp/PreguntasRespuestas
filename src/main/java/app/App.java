@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import model.Juego;
 import model.Pregunta;
 import model.Respuesta;
@@ -26,10 +27,10 @@ public class App extends javax.swing.JFrame {
     private String letraRespuestaCorrecta; // la utilizo cuando creo una pregunta
     private final String TITULO_APP = "Millionaire";
     private final String VERSION_APP = "0.1a";
-    
+
     private Juego juego;
     private int indexPregunta;
-    
+
     public App() {
         initComponents();
 
@@ -45,9 +46,9 @@ public class App extends javax.swing.JFrame {
         yaJugo = false;
 //        jMenuBar1.setVisible(false);
 
-        this.setTitle(TITULO_APP+" - "+VERSION_APP);
-        formCrearPregunta.setTitle(TITULO_APP+" - "+VERSION_APP);
-        
+        this.setTitle(TITULO_APP + " - " + VERSION_APP);
+        formCrearPregunta.setTitle(TITULO_APP + " - " + VERSION_APP);
+
         juego = new Juego();
         indexPregunta = 0;
 
@@ -60,16 +61,15 @@ public class App extends javax.swing.JFrame {
 //        preguntaActual.addRespuesta(new Respuesta("d", "31 Minutos", false));
 //
 //        setPreguntaInGUI(preguntaActual);
-    
-        if(new File("juego.json").exists()){
-            ObjectMapper mapper = new ObjectMapper();
+        if (new File("juego.json").exists()) {
             try {
+                ObjectMapper mapper = new ObjectMapper();
                 juego = mapper.readValue(new File("juego.json"), Juego.class);
-
                 System.out.println(juego);
             } catch (IOException ex) {
                 Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
             }
+        } else {
         }
     }
 
@@ -441,43 +441,48 @@ public class App extends javax.swing.JFrame {
     }//GEN-LAST:event_lblDCrearPregMouseReleased
 
     private void btnRegistrarPreguntaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarPreguntaActionPerformed
-        Pregunta p = new Pregunta(txtPregunta.getText().trim());
-        
-        p.addRespuesta(new Respuesta("a", txtRespACrearPreg.getText(), letraRespuestaCorrecta.equals("a")));
-        p.addRespuesta(new Respuesta("b", txtRespBCrearPreg.getText(), letraRespuestaCorrecta.equals("b")));
-        p.addRespuesta(new Respuesta("c", txtRespCCrearPreg.getText(), letraRespuestaCorrecta.equals("c")));
-        p.addRespuesta(new Respuesta("d", txtRespDCrearPreg.getText(), letraRespuestaCorrecta.equals("d")));
-        
-        juego.addPregunta(p);
-        
-        /*Limpieza de formulario*/
-        txtPregunta.setText(null);
-        txtRespACrearPreg.setText(null);
-        txtRespBCrearPreg.setText(null);
-        txtRespCCrearPreg.setText(null);
-        txtRespDCrearPreg.setText(null);
-        
-        txtRespACrearPreg.setBackground(colorFondoPreguntas);
-        txtRespBCrearPreg.setBackground(colorFondoPreguntas);
-        txtRespCCrearPreg.setBackground(colorFondoPreguntas);
-        txtRespDCrearPreg.setBackground(colorFondoPreguntas);
-        
-        txtPregunta.requestFocus();
-        /*Limpieza de formulario*/
+        if (letraRespuestaCorrecta != null) {
+            Pregunta p = new Pregunta(txtPregunta.getText().trim());
+
+            p.addRespuesta(new Respuesta("a", txtRespACrearPreg.getText(), letraRespuestaCorrecta.equals("a")));
+            p.addRespuesta(new Respuesta("b", txtRespBCrearPreg.getText(), letraRespuestaCorrecta.equals("b")));
+            p.addRespuesta(new Respuesta("c", txtRespCCrearPreg.getText(), letraRespuestaCorrecta.equals("c")));
+            p.addRespuesta(new Respuesta("d", txtRespDCrearPreg.getText(), letraRespuestaCorrecta.equals("d")));
+
+            juego.addPregunta(p);
+
+            /*Limpieza de formulario*/
+            txtPregunta.setText(null);
+            txtRespACrearPreg.setText(null);
+            txtRespBCrearPreg.setText(null);
+            txtRespCCrearPreg.setText(null);
+            txtRespDCrearPreg.setText(null);
+
+            txtRespACrearPreg.setBackground(colorFondoPreguntas);
+            txtRespBCrearPreg.setBackground(colorFondoPreguntas);
+            txtRespCCrearPreg.setBackground(colorFondoPreguntas);
+            txtRespDCrearPreg.setBackground(colorFondoPreguntas);
+
+            txtPregunta.requestFocus();
+            /*Limpieza de formulario*/
+
+            letraRespuestaCorrecta = null;
+        } else {
+            JOptionPane.showMessageDialog(formCrearPregunta, "Escoja una respuesta correcta");
+        }
     }//GEN-LAST:event_btnRegistrarPreguntaActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
+        siguientePregunta();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        ObjectMapper om = new ObjectMapper();
-        
         try {
+            ObjectMapper om = new ObjectMapper();
+
             om.writeValue(new File("juego.json"), juego);
             String jsonInString = om.writeValueAsString(juego);
             System.out.println(jsonInString);
-            
             jsonInString = om.writerWithDefaultPrettyPrinter().writeValueAsString(juego);
             System.out.println(jsonInString);
         } catch (IOException ex) {
@@ -590,12 +595,12 @@ public class App extends javax.swing.JFrame {
                     }
                 }
                 // Pause por n segundos mientras se sabe la respuesta correcta
-                
+
                 Respuesta correcta = preguntaActual.getRespuestaCorrecta();
                 boolean isRespCor = preguntaActual.isRespuestaCorrecta(letra);
                 JLabel lblRespCorrecta;
                 Color color;
-                
+
                 if (isRespCor) {
                     lblRespCorrecta = lblResp;
                     color = colorLetras;
@@ -615,7 +620,7 @@ public class App extends javax.swing.JFrame {
                             lblRespCorrecta = lblRespD;
                     }
                 }
-                
+
                 // Hilo de animación
                 new Thread(() -> {
                     for (int i = 0; i < 3; i++) {
@@ -631,11 +636,28 @@ public class App extends javax.swing.JFrame {
                         }
                     }
                 }).start();
+               
+                
+                
+                try {
+                    Thread.sleep(3000);
+                    siguientePregunta();
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            
+            
             }).start();
         }
     }
 
     private void setPreguntaInGUI(Pregunta p) {
+        yaJugo = false;
+        lblRespA.setBackground(colorFondoPreguntas);
+        lblRespB.setBackground(colorFondoPreguntas);
+        lblRespC.setBackground(colorFondoPreguntas);
+        lblRespD.setBackground(colorFondoPreguntas);
+        
         lblPregunta.setText("<html><center>" + p.getValor() + "</center></html>");
 
         lblRespA.setText(p.getRespuesta("a").getValor());
@@ -670,6 +692,17 @@ public class App extends javax.swing.JFrame {
                 txtRespBCrearPreg.setBackground(colorFondoPreguntas);
                 txtRespCCrearPreg.setBackground(colorFondoPreguntas);
                 txtRespDCrearPreg.setBackground(colorCorrecta);
+        }
+    }
+
+    private void siguientePregunta() {
+        preguntaActual = juego.getPregunta(indexPregunta);
+
+        if (preguntaActual != null) {
+            indexPregunta++;
+            setPreguntaInGUI(preguntaActual);
+        }else{
+            JOptionPane.showMessageDialog(this, "No quedan más preguntas");
         }
     }
 }

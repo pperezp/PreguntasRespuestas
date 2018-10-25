@@ -16,6 +16,9 @@ public class Juego implements Serializable{
     }
     
     public Pregunta getPregunta(int index){
+        if(index >= preguntas.size()){
+            return null;
+        }
         return preguntas.get(index);
     }
 
