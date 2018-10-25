@@ -1,8 +1,12 @@
 //-Dsun.java2d.opengl=True
 //https://docs.oracle.com/javase/8/docs/technotes/guides/2d/flags.html
+//https://www.mkyong.com/java/jackson-2-convert-java-object-to-from-json/
 package app;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.Color;
+import java.io.File;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
@@ -56,6 +60,17 @@ public class App extends javax.swing.JFrame {
 //        preguntaActual.addRespuesta(new Respuesta("d", "31 Minutos", false));
 //
 //        setPreguntaInGUI(preguntaActual);
+    
+        if(new File("juego.json").exists()){
+            ObjectMapper mapper = new ObjectMapper();
+            try {
+                juego = mapper.readValue(new File("juego.json"), Juego.class);
+
+                System.out.println(juego);
+            } catch (IOException ex) {
+                Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -219,6 +234,11 @@ public class App extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logo.png"))); // NOI18N
@@ -449,6 +469,21 @@ public class App extends javax.swing.JFrame {
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        ObjectMapper om = new ObjectMapper();
+        
+        try {
+            om.writeValue(new File("juego.json"), juego);
+            String jsonInString = om.writeValueAsString(juego);
+            System.out.println(jsonInString);
+            
+            jsonInString = om.writerWithDefaultPrettyPrinter().writeValueAsString(juego);
+            System.out.println(jsonInString);
+        } catch (IOException ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_formWindowClosing
 
     public static void main(String args[]) {
 

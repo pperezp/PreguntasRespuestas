@@ -7,7 +7,11 @@ import java.util.List;
 public class Pregunta implements Serializable{
     private String valor;
     private List<Respuesta> respuestas;
+    private Respuesta respuestaCorrecta;
 
+    public Pregunta() {
+    }
+    
     public Pregunta(String valor) {
         this.valor = valor;
         this.respuestas = new ArrayList<>();
@@ -38,15 +42,20 @@ public class Pregunta implements Serializable{
     public boolean isRespuestaCorrecta(String letra){
         return getRespuesta(letra).isCorrecta();
     }
+
+    public void setRespuestaCorrecta(Respuesta respuestaCorrecta) {
+        this.respuestaCorrecta = respuestaCorrecta;
+    }
     
     public Respuesta getRespuestaCorrecta(){
         for (Respuesta res : respuestas) {
             if(res.isCorrecta()){
-                return res;
+                respuestaCorrecta = res;
+                break;
             }
         }
         
-        return null;
+        return respuestaCorrecta;
     }
     
     public void addRespuesta(Respuesta respuesta) {

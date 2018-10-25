@@ -5,12 +5,15 @@ import java.io.Serializable;
 public class Respuesta implements Serializable{
     private String letra;
     private String valor;
-    private boolean correcto;
+    private boolean correcta;
 
+    public Respuesta() {
+    }
+    
     public Respuesta(String letra, String valor, boolean correcto) {
         this.letra = letra;
         this.valor = valor;
-        this.correcto = correcto;
+        this.correcta = correcto;
     }
 
     public String getLetra() {
@@ -30,11 +33,11 @@ public class Respuesta implements Serializable{
     }
 
     public boolean isCorrecta() {
-        return correcto;
+        return correcta;
     }
 
-    public void setCorrecto(boolean correcto) {
-        this.correcto = correcto;
+    public void setCorrecta(boolean correcta) {
+        this.correcta = correcta;
     }
     
     

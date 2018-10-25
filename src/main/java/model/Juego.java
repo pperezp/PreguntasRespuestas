@@ -32,4 +32,19 @@ public class Juego implements Serializable{
         }
         System.out.println("----------------------------");
     }
+    
+    @Override
+    public String toString(){
+        for (Pregunta preg : preguntas) {
+            System.out.println("----------------------------");
+            System.out.println(preg.getValor());
+            
+            for (Respuesta res : preg.getRespuestas()) {
+                System.out.println(res.getLetra()+" - "+res.getValor()+" ["+res.isCorrecta()+"]");
+            }
+        }
+        System.out.println("----------------------------");
+        
+        return "";
+    }
 }
