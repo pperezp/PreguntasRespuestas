@@ -21,7 +21,7 @@ public class Reproductor extends Thread{
     }
     
     public void setCancion(String nombre){
-        nombreCancion = getClass().getResource("/"+nombre).getPath();
+        nombreCancion = nombre;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package model;
 
 import java.awt.Color;
+import java.io.File;
 
 public class Rules {
     public static final String     NOMBRE_APP                       = "Millionaire";
@@ -18,4 +19,12 @@ public class Rules {
     public static final int        PARPADEOS                        = 3;
     // 100 es preciso. Mientras mayor sea el número, mas lento
     public static final int        VELOCIDAD_PARPADEO               = 100;
+    
+    /*Recursos*/
+    public static final String     MP3_CORRECTA                     = new File("recursos/correcta.mp3").getPath();
+    public static final String     MP3_INCORRECTA                   = new File("recursos/incorrecto.mp3").getPath();
+    public static final String     MP3_MAIN                         = new File("recursos/main2.mp3").getPath();
+    public static final String     MP3_PREGUNTAS                    = new File("recursos/preguntas.mp3").getPath();
+    public static final String     MP3_SELECCION_RESPUESTA          = new File("recursos/seleccion_respuesta.mp3").getPath();
+    /*Recursos*/
 }

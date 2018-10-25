@@ -32,7 +32,6 @@ public class App extends javax.swing.JFrame {
     private Juego juego;
     private int indexPregunta;
     private Reproductor hiloMusicaPrincipal;
-    private String nombreCancion;
 
     public App() {
         initComponents();
@@ -70,10 +69,11 @@ public class App extends javax.swing.JFrame {
 
         panelJuego.setVisible(false);
 
-        hiloMusicaPrincipal = new Reproductor();
-        hiloMusicaPrincipal.setCancion("main2.mp3");
-        hiloMusicaPrincipal.setInfinito(true);
-        hiloMusicaPrincipal.start();
+//        hiloMusicaPrincipal = new Reproductor();
+//        hiloMusicaPrincipal.setCancion(Rules.MP3_MAIN);
+//        hiloMusicaPrincipal.setInfinito(true);
+//        hiloMusicaPrincipal.start();
+        reproducir(Rules.MP3_MAIN, true);
 
     }
 
@@ -521,10 +521,6 @@ public class App extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         if (!juego.getPreguntas().isEmpty()) {
-            this.nombreCancion = nombreCancion = getClass().getResource("/preguntas.mp3").getPath();;
-
-//            reproducir("preguntas.mp3");
-
             panelJuego.setVisible(true);
             siguientePregunta();
         } else {
@@ -644,7 +640,7 @@ public class App extends javax.swing.JFrame {
 
     private void responder(String letra, JLabel lblResp) {
         if (!yaJugo) {
-            reproducir("seleccion_respuesta.mp3", false);
+            reproducir(Rules.MP3_SELECCION_RESPUESTA, false);
             lblResp.setBackground(Rules.COLOR_LETRAS);
             yaJugo = true;
 
@@ -663,12 +659,12 @@ public class App extends javax.swing.JFrame {
                 Color color;
 
                 if (isRespCor) {
-                    reproducir("correcta.mp3", false);
+                    reproducir(Rules.MP3_CORRECTA, false);
                     lblRespCorrecta = lblResp;
                     color = Rules.COLOR_LETRAS;
                     juego.aumentarCorrectas();
                 } else {
-                    reproducir("incorrecto.mp3", false);
+                    reproducir(Rules.MP3_INCORRECTA, false);
                     juego.aumentarIncorrectas();
                     color = Rules.COLOR_FONDO;
                     switch (correcta.getLetra()) {
@@ -769,10 +765,10 @@ public class App extends javax.swing.JFrame {
 
         if (preguntaActual != null) {
             indexPregunta++;
-            reproducir("preguntas.mp3", true);
+            reproducir(Rules.MP3_PREGUNTAS, true);
             setPreguntaInGUI(preguntaActual);
         } else {
-            reproducir("main.mp3", true);
+            reproducir(Rules.MP3_MAIN, true);
             JOptionPane.showMessageDialog(this, "Gracias por jugar!");
             panelJuego.setVisible(false);
             indexPregunta = 0;
@@ -782,8 +778,10 @@ public class App extends javax.swing.JFrame {
     }
 
     private void reproducir(String cancion, boolean infinito) {
-        hiloMusicaPrincipal.stopCancion();
-        hiloMusicaPrincipal.stop();
+        if(hiloMusicaPrincipal != null){
+            hiloMusicaPrincipal.stopCancion();
+            hiloMusicaPrincipal.stop();
+        }
         hiloMusicaPrincipal = new Reproductor();
         hiloMusicaPrincipal.setInfinito(infinito);
         hiloMusicaPrincipal.setCancion(cancion);

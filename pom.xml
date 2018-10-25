@@ -26,11 +26,13 @@
         </resources>
         <!-- Añadí esto para colocar los recursos en esa carpeta --> 
         
-        <!-- Establezco la clase principal -->
+        
         <plugins>
+            <!-- Establezco la clase principal -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
+                <version>3.1.0</version>
                 <configuration>
                     <archive>
                         <manifest>
@@ -39,8 +41,27 @@
                     </archive>
                 </configuration>
             </plugin>
+            <!-- Establezco la clase principal -->
+            
+            <!-- Plugin para que los jars de dependencias esten dentro del jar -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                     <finalName>${artifactId}-${version}</finalName>
+                </configuration>
+            </plugin>
+            <!-- Plugin para que los jars de dependencias esten dentro del jar -->
         </plugins>
-        <!-- Establezco la clase principal -->
     </build>
     <!-- Añadí esto -->
     
