@@ -264,6 +264,7 @@ public class App extends javax.swing.JFrame {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
+                    // Pause por n segundos mientras se sabe la respuesta correcta
                     for (int i = 0; i < segundosPause; i++) {
                         try {
                             Thread.sleep(1000);
@@ -271,47 +272,51 @@ public class App extends javax.swing.JFrame {
                             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
+                    // Pause por n segundos mientras se sabe la respuesta correcta
                     
-                    System.out.println(letra);
-                    if(p.isRespuestaCorrecta(letra)){
-                        System.out.println("Es correcta");
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                for (int i = 0; i < 3; i++) {
-                                    try {
-                                        if(i % 2 == 0){
-                                            System.out.println("si");
-                                            lblResp.setBackground(colorCorrecta);
-                                        }else{
-                                            System.out.println("no");
-                                            lblResp.setBackground(colorLetras);
-                                        }
-                                        Thread.sleep(100);
-                                    } catch (InterruptedException ex) {
-                                        Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-                                    }
-                                }
-                            }
-                        }).start();
+                    Respuesta correcta = p.getRespuestaCorrecta();
+                    boolean isRespCor = p.isRespuestaCorrecta(letra);
+                    JLabel lblRespCorrecta;
+                    Color color;
+                    
+                    if(isRespCor){
+                        lblRespCorrecta = lblResp;
+                        color = colorLetras;
                     }else{
-                        System.out.println("No Es correcta");
-                        Respuesta correcta = p.getRespuestaCorrecta();
-                        
+                        color = colorFondo;
                         switch(correcta.getLetra()){
                             case "a":
-                                lblRespA.setBackground(colorCorrecta);
+                                lblRespCorrecta = lblRespA;
                                 break;
                             case "b":
-                                lblRespB.setBackground(colorCorrecta);
+                                lblRespCorrecta = lblRespB;
                                 break;
                             case "c":
-                                lblRespC.setBackground(colorCorrecta);
+                                lblRespCorrecta = lblRespC;
                                 break;
                             default:
-                                lblRespD.setBackground(colorCorrecta);
+                                lblRespCorrecta = lblRespD;
                         }
                     }
+                    
+                    // Hilo de animación
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            for (int i = 0; i < 3; i++) {
+                                try {
+                                    if(i % 2 == 0){
+                                        lblRespCorrecta.setBackground(colorCorrecta);
+                                    }else{
+                                        lblRespCorrecta.setBackground(color);
+                                    }
+                                    Thread.sleep(100);
+                                } catch (InterruptedException ex) {
+                                    Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                            }
+                        }
+                    }).start();
                 }
             }).start();
         }
