@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//-Dsun.java2d.opengl=True
 package app;
 
 import java.awt.Color;
@@ -204,15 +200,15 @@ public class App extends javax.swing.JFrame {
     }//GEN-LAST:event_lblRespAMouseReleased
 
     private void lblRespCMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRespCMouseReleased
-        responder("b",lblRespC);
+        responder("c",lblRespC);
     }//GEN-LAST:event_lblRespCMouseReleased
 
     private void lblRespDMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRespDMouseReleased
-        responder("c",lblRespD);
+        responder("d",lblRespD);
     }//GEN-LAST:event_lblRespDMouseReleased
 
     private void lblRespBMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRespBMouseReleased
-        responder("d",lblRespB);
+        responder("b",lblRespB);
     }//GEN-LAST:event_lblRespBMouseReleased
 
     public static void main(String args[]) {
@@ -276,9 +272,30 @@ public class App extends javax.swing.JFrame {
                         }
                     }
                     
+                    System.out.println(letra);
                     if(p.isRespuestaCorrecta(letra)){
-                        lblResp.setBackground(colorCorrecta);
+                        System.out.println("Es correcta");
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                for (int i = 0; i < 3; i++) {
+                                    try {
+                                        if(i % 2 == 0){
+                                            System.out.println("si");
+                                            lblResp.setBackground(colorCorrecta);
+                                        }else{
+                                            System.out.println("no");
+                                            lblResp.setBackground(colorLetras);
+                                        }
+                                        Thread.sleep(100);
+                                    } catch (InterruptedException ex) {
+                                        Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+                                    }
+                                }
+                            }
+                        }).start();
                     }else{
+                        System.out.println("No Es correcta");
                         Respuesta correcta = p.getRespuestaCorrecta();
                         
                         switch(correcta.getLetra()){
