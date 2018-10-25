@@ -2,21 +2,17 @@
 //https://docs.oracle.com/javase/8/docs/technotes/guides/2d/flags.html
 //https://www.mkyong.com/java/jackson-2-convert-java-object-to-from-json/
 //https://www.mkyong.com/java/how-to-enable-pretty-print-json-output-jackson/
+//https://stackoverflow.com/questions/43309323/how-to-run-jar-file-java-lang-noclassdeffounderror/43309812
 package app;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.Color;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javazoom.jl.decoder.JavaLayerException;
-import javazoom.jl.player.Player;
 import model.Juego;
 import model.Pregunta;
 import model.Reproductor;

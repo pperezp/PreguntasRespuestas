@@ -28,39 +28,30 @@
         
         
         <plugins>
-            <!-- Establezco la clase principal -->
+            <!-- Define clase principal y además crear un jar aparte con las dependencias -->
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.1.0</version>
+                <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
                     <archive>
                         <manifest>
                             <mainClass>app.App</mainClass>
                         </manifest>
                     </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
                 </configuration>
-            </plugin>
-            <!-- Establezco la clase principal -->
-            
-            <!-- Plugin para que los jars de dependencias esten dentro del jar -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.0</version>
                 <executions>
                     <execution>
-                        <phase>package</phase>
+                        <id>make-assembly</id> <!-- this is used for inheritance merges -->
+                        <phase>package</phase> <!-- bind to the packaging phase -->
                         <goals>
-                            <goal>shade</goal>
+                            <goal>single</goal>
                         </goals>
                     </execution>
                 </executions>
-                <configuration>
-                     <finalName>${artifactId}-${version}</finalName>
-                </configuration>
             </plugin>
-            <!-- Plugin para que los jars de dependencias esten dentro del jar -->
+            <!-- Define clase principal y además crear un jar aparte con las dependencias -->
         </plugins>
     </build>
     <!-- Añadí esto -->
@@ -87,5 +78,5 @@
         </dependency>
 
     </dependencies>
-
+    
 </project>
