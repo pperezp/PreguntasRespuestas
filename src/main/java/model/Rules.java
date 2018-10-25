@@ -10,6 +10,7 @@ public class Rules {
     public static final Color      COLOR_LETRAS                     = Color.decode("#FFB900");
     public static final Color      COLOR_FONDO_PREGUNTAS            = Color.decode("#3B2F83");
     public static final Color      COLOR_CORRECTA                   = Color.decode("#00B500");
+    public static final Color      COLOR_INCORRECTA                 = Color.decode("#F93131");
     public static final int        PAUSE_SABER_RESPUESTA_CORRECTA   = 2;
     public static final int        PAUSE_ENTRE_PREGUNTAS            = 2;
     

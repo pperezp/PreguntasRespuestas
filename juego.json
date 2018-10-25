@@ -71,5 +71,7 @@
       "valor" : "18",
       "correcta" : true
     }
-  } ]
+  } ],
+  "contCorrectas" : 1,
+  "contIncorrectas" : 2
 }

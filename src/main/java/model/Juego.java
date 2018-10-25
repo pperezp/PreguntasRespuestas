@@ -6,11 +6,31 @@ import java.util.List;
 
 public class Juego implements Serializable{
     private List<Pregunta> preguntas;
+    private int contCorrectas;
+    private int contIncorrectas;
 
     public Juego() {
         this.preguntas = new ArrayList<>();
+        contCorrectas = 0;
+        contIncorrectas = 0;
     }
-   
+
+    public int getContCorrectas() {
+        return contCorrectas;
+    }
+
+    public int getContIncorrectas() {
+        return contIncorrectas;
+    }
+    
+    public void aumentarCorrectas(){
+        contCorrectas++;
+    }
+    
+    public void aumentarIncorrectas(){
+        contIncorrectas++;
+    }
+
     public List<Pregunta> getPreguntas() {
         return preguntas;
     }
