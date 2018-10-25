@@ -1,6 +1,8 @@
 package model;
 
-public class Respuesta {
+import java.io.Serializable;
+
+public class Respuesta implements Serializable{
     private String letra;
     private String valor;
     private boolean correcto;
@@ -27,7 +29,7 @@ public class Respuesta {
         this.valor = valor;
     }
 
-    public boolean isCorrecto() {
+    public boolean isCorrecta() {
         return correcto;
     }
 

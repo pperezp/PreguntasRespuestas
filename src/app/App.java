@@ -1,28 +1,35 @@
 //-Dsun.java2d.opengl=True
+//https://docs.oracle.com/javase/8/docs/technotes/guides/2d/flags.html
 package app;
 
 import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
+import model.Juego;
 import model.Pregunta;
 import model.Respuesta;
 
 public class App extends javax.swing.JFrame {
 
-    private Color colorFondo;
-    private Color colorLetras;
-    private Color colorFondoPreguntas;
-    private Color colorCorrecta;
-    private int segundosPause;
+    private final Color colorFondo;
+    private final Color colorLetras;
+    private final Color colorFondoPreguntas;
+    private final Color colorCorrecta;
+    private final int segundosPause;
     private boolean yaJugo;
-    private Pregunta p;
-
+    private Pregunta preguntaActual;
+    private String letraRespuestaCorrecta; // la utilizo cuando creo una pregunta
+    private final String TITULO_APP = "Millionaire";
+    private final String VERSION_APP = "0.1a";
+    
+    private Juego juego;
+    
     public App() {
         initComponents();
 
         segundosPause = 2;
-        
+
         colorFondo = Color.decode("#000434");
         colorLetras = Color.decode("#FFB900");
         colorFondoPreguntas = Color.decode("#3B2F83");
@@ -31,22 +38,40 @@ public class App extends javax.swing.JFrame {
         initColores();
         this.setLocationRelativeTo(null);
         yaJugo = false;
+//        jMenuBar1.setVisible(false);
+
+        this.setTitle(TITULO_APP+" - "+VERSION_APP);
+        formCrearPregunta.setTitle(TITULO_APP+" - "+VERSION_APP);
+        
+        juego = new Juego();
 
         // Test Pregunta
-        p = new Pregunta("¿Cómo se llama la teleserie más famosa de Canal 13 en 2018?");
-
-        p.addRespuesta(new Respuesta("a", "Lola", false));
-        p.addRespuesta(new Respuesta("b", "Pacto de Sangre", true));
-        p.addRespuesta(new Respuesta("c", "Machos", false));
-        p.addRespuesta(new Respuesta("d", "31 Minutos", false));
-
-        setPreguntaInGUI(p);
+//        p = new Pregunta("¿Cómo se llama la teleserie más famosa de Canal 13 en 2018?");
+//
+//        p.addRespuesta(new Respuesta("a", "Lola", false));
+//        p.addRespuesta(new Respuesta("b", "Pacto de Sangre", true));
+//        p.addRespuesta(new Respuesta("c", "Machos", false));
+//        p.addRespuesta(new Respuesta("d", "31 Minutos", false));
+//
+//        setPreguntaInGUI(p);
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        formCrearPregunta = new javax.swing.JFrame();
+        panelFondoCrearPreguntas = new javax.swing.JPanel();
+        txtPregunta = new javax.swing.JTextField();
+        lblCCrearPreg = new javax.swing.JLabel();
+        lblACrearPreg = new javax.swing.JLabel();
+        txtRespACrearPreg = new javax.swing.JTextField();
+        txtRespCCrearPreg = new javax.swing.JTextField();
+        lblBCrearPreg = new javax.swing.JLabel();
+        lblDCrearPreg = new javax.swing.JLabel();
+        txtRespBCrearPreg = new javax.swing.JTextField();
+        txtRespDCrearPreg = new javax.swing.JTextField();
+        btnRegistrarPregunta = new javax.swing.JButton();
         panelFondo = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         lblRespA = new javax.swing.JLabel();
@@ -58,6 +83,136 @@ public class App extends javax.swing.JFrame {
         lblRespD = new javax.swing.JLabel();
         lblD = new javax.swing.JLabel();
         lblPregunta = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+
+        txtPregunta.setFont(new java.awt.Font("Dialog", 1, 30)); // NOI18N
+        txtPregunta.setForeground(new java.awt.Color(255, 255, 255));
+        txtPregunta.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        lblCCrearPreg.setFont(new java.awt.Font("Dialog", 1, 30)); // NOI18N
+        lblCCrearPreg.setText("C:");
+        lblCCrearPreg.setOpaque(true);
+        lblCCrearPreg.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                lblCCrearPregMouseReleased(evt);
+            }
+        });
+
+        lblACrearPreg.setFont(new java.awt.Font("Dialog", 1, 30)); // NOI18N
+        lblACrearPreg.setText("A:");
+        lblACrearPreg.setOpaque(true);
+        lblACrearPreg.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                lblACrearPregMouseReleased(evt);
+            }
+        });
+
+        txtRespACrearPreg.setFont(new java.awt.Font("Dialog", 1, 30)); // NOI18N
+        txtRespACrearPreg.setForeground(new java.awt.Color(255, 255, 255));
+
+        txtRespCCrearPreg.setFont(new java.awt.Font("Dialog", 1, 30)); // NOI18N
+        txtRespCCrearPreg.setForeground(new java.awt.Color(255, 255, 255));
+
+        lblBCrearPreg.setFont(new java.awt.Font("Dialog", 1, 30)); // NOI18N
+        lblBCrearPreg.setText("B:");
+        lblBCrearPreg.setOpaque(true);
+        lblBCrearPreg.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                lblBCrearPregMouseReleased(evt);
+            }
+        });
+
+        lblDCrearPreg.setFont(new java.awt.Font("Dialog", 1, 30)); // NOI18N
+        lblDCrearPreg.setText("D:");
+        lblDCrearPreg.setOpaque(true);
+        lblDCrearPreg.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                lblDCrearPregMouseReleased(evt);
+            }
+        });
+
+        txtRespBCrearPreg.setFont(new java.awt.Font("Dialog", 1, 30)); // NOI18N
+        txtRespBCrearPreg.setForeground(new java.awt.Color(255, 255, 255));
+
+        txtRespDCrearPreg.setFont(new java.awt.Font("Dialog", 1, 30)); // NOI18N
+        txtRespDCrearPreg.setForeground(new java.awt.Color(255, 255, 255));
+
+        btnRegistrarPregunta.setFont(new java.awt.Font("Dialog", 1, 30)); // NOI18N
+        btnRegistrarPregunta.setText("Registrar");
+        btnRegistrarPregunta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarPreguntaActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelFondoCrearPreguntasLayout = new javax.swing.GroupLayout(panelFondoCrearPreguntas);
+        panelFondoCrearPreguntas.setLayout(panelFondoCrearPreguntasLayout);
+        panelFondoCrearPreguntasLayout.setHorizontalGroup(
+            panelFondoCrearPreguntasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelFondoCrearPreguntasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelFondoCrearPreguntasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnRegistrarPregunta, javax.swing.GroupLayout.DEFAULT_SIZE, 768, Short.MAX_VALUE)
+                    .addComponent(txtPregunta)
+                    .addGroup(panelFondoCrearPreguntasLayout.createSequentialGroup()
+                        .addGroup(panelFondoCrearPreguntasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblCCrearPreg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblACrearPreg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelFondoCrearPreguntasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtRespACrearPreg)
+                            .addComponent(txtRespCCrearPreg))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelFondoCrearPreguntasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblDCrearPreg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblBCrearPreg))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelFondoCrearPreguntasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtRespBCrearPreg)
+                            .addComponent(txtRespDCrearPreg))))
+                .addContainerGap())
+        );
+        panelFondoCrearPreguntasLayout.setVerticalGroup(
+            panelFondoCrearPreguntasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelFondoCrearPreguntasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtPregunta, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelFondoCrearPreguntasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelFondoCrearPreguntasLayout.createSequentialGroup()
+                        .addGroup(panelFondoCrearPreguntasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtRespACrearPreg)
+                            .addComponent(lblACrearPreg, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelFondoCrearPreguntasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblCCrearPreg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtRespCCrearPreg, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)))
+                    .addGroup(panelFondoCrearPreguntasLayout.createSequentialGroup()
+                        .addGroup(panelFondoCrearPreguntasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtRespBCrearPreg)
+                            .addComponent(lblBCrearPreg, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelFondoCrearPreguntasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblDCrearPreg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtRespDCrearPreg, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnRegistrarPregunta, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout formCrearPreguntaLayout = new javax.swing.GroupLayout(formCrearPregunta.getContentPane());
+        formCrearPregunta.getContentPane().setLayout(formCrearPreguntaLayout);
+        formCrearPreguntaLayout.setHorizontalGroup(
+            formCrearPreguntaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelFondoCrearPreguntas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        formCrearPreguntaLayout.setVerticalGroup(
+            formCrearPreguntaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelFondoCrearPreguntas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -161,7 +316,7 @@ public class App extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblPregunta, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
+                .addComponent(lblPregunta, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -181,6 +336,24 @@ public class App extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jMenu1.setText("Archivo");
+
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK));
+        jMenuItem1.setText("Crear Pregunta");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Ayuda");
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -196,43 +369,104 @@ public class App extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblRespAMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRespAMouseReleased
-        responder("a",lblRespA);
+        responder("a", lblRespA);
     }//GEN-LAST:event_lblRespAMouseReleased
 
     private void lblRespCMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRespCMouseReleased
-        responder("c",lblRespC);
+        responder("c", lblRespC);
     }//GEN-LAST:event_lblRespCMouseReleased
 
     private void lblRespDMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRespDMouseReleased
-        responder("d",lblRespD);
+        responder("d", lblRespD);
     }//GEN-LAST:event_lblRespDMouseReleased
 
     private void lblRespBMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRespBMouseReleased
-        responder("b",lblRespB);
+        responder("b", lblRespB);
     }//GEN-LAST:event_lblRespBMouseReleased
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        formCrearPregunta.setBounds(0, 0, 800, 600);
+        formCrearPregunta.setLocationRelativeTo(null);
+        formCrearPregunta.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void lblACrearPregMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblACrearPregMouseReleased
+        procesarRespuestaCorrecta("a");
+    }//GEN-LAST:event_lblACrearPregMouseReleased
+
+    private void lblBCrearPregMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBCrearPregMouseReleased
+        procesarRespuestaCorrecta("b");
+    }//GEN-LAST:event_lblBCrearPregMouseReleased
+
+    private void lblCCrearPregMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCCrearPregMouseReleased
+        procesarRespuestaCorrecta("c");
+    }//GEN-LAST:event_lblCCrearPregMouseReleased
+
+    private void lblDCrearPregMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDCrearPregMouseReleased
+        procesarRespuestaCorrecta("d");
+    }//GEN-LAST:event_lblDCrearPregMouseReleased
+
+    private void btnRegistrarPreguntaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarPreguntaActionPerformed
+        Pregunta p = new Pregunta(txtPregunta.getText().trim());
+        
+        p.addRespuesta(new Respuesta("a", txtRespACrearPreg.getText(), letraRespuestaCorrecta.equals("a")));
+        p.addRespuesta(new Respuesta("b", txtRespBCrearPreg.getText(), letraRespuestaCorrecta.equals("b")));
+        p.addRespuesta(new Respuesta("c", txtRespCCrearPreg.getText(), letraRespuestaCorrecta.equals("c")));
+        p.addRespuesta(new Respuesta("d", txtRespDCrearPreg.getText(), letraRespuestaCorrecta.equals("d")));
+        
+        juego.addPregunta(p);
+        
+        /*Limpieza de formulario*/
+        txtPregunta.setText(null);
+        txtRespACrearPreg.setText(null);
+        txtRespBCrearPreg.setText(null);
+        txtRespCCrearPreg.setText(null);
+        txtRespDCrearPreg.setText(null);
+        
+        txtRespACrearPreg.setBackground(colorFondoPreguntas);
+        txtRespBCrearPreg.setBackground(colorFondoPreguntas);
+        txtRespCCrearPreg.setBackground(colorFondoPreguntas);
+        txtRespDCrearPreg.setBackground(colorFondoPreguntas);
+        
+        txtPregunta.requestFocus();
+        /*Limpieza de formulario*/
+    }//GEN-LAST:event_btnRegistrarPreguntaActionPerformed
 
     public static void main(String args[]) {
 
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new App().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new App().setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnRegistrarPregunta;
+    private javax.swing.JFrame formCrearPregunta;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JLabel lblA;
+    private javax.swing.JLabel lblACrearPreg;
     private javax.swing.JLabel lblB;
+    private javax.swing.JLabel lblBCrearPreg;
     private javax.swing.JLabel lblC;
+    private javax.swing.JLabel lblCCrearPreg;
     private javax.swing.JLabel lblD;
+    private javax.swing.JLabel lblDCrearPreg;
     private javax.swing.JLabel lblPregunta;
     private javax.swing.JLabel lblRespA;
     private javax.swing.JLabel lblRespB;
     private javax.swing.JLabel lblRespC;
     private javax.swing.JLabel lblRespD;
     private javax.swing.JPanel panelFondo;
+    private javax.swing.JPanel panelFondoCrearPreguntas;
+    private javax.swing.JTextField txtPregunta;
+    private javax.swing.JTextField txtRespACrearPreg;
+    private javax.swing.JTextField txtRespBCrearPreg;
+    private javax.swing.JTextField txtRespCCrearPreg;
+    private javax.swing.JTextField txtRespDCrearPreg;
     // End of variables declaration//GEN-END:variables
 
     private void initColores() {
@@ -254,6 +488,36 @@ public class App extends javax.swing.JFrame {
         lblRespD.setBackground(colorFondoPreguntas);
 
         lblPregunta.setBackground(colorFondoPreguntas);
+
+        /*Formulario preguntas*/
+        panelFondoCrearPreguntas.setBackground(colorFondo);
+        txtPregunta.setBackground(colorFondoPreguntas);
+
+        lblACrearPreg.setBackground(colorFondoPreguntas);
+        lblBCrearPreg.setBackground(colorFondoPreguntas);
+        lblCCrearPreg.setBackground(colorFondoPreguntas);
+        lblDCrearPreg.setBackground(colorFondoPreguntas);
+
+        lblACrearPreg.setForeground(colorLetras);
+        lblBCrearPreg.setForeground(colorLetras);
+        lblCCrearPreg.setForeground(colorLetras);
+        lblDCrearPreg.setForeground(colorLetras);
+
+        txtRespACrearPreg.setBackground(colorFondoPreguntas);
+        txtRespBCrearPreg.setBackground(colorFondoPreguntas);
+        txtRespCCrearPreg.setBackground(colorFondoPreguntas);
+        txtRespDCrearPreg.setBackground(colorFondoPreguntas);
+
+        btnRegistrarPregunta.setBackground(colorCorrecta);
+        btnRegistrarPregunta.setForeground(Color.white);
+
+        txtRespACrearPreg.setCaretColor(Color.white);
+        txtRespBCrearPreg.setCaretColor(Color.white);
+        txtRespCCrearPreg.setCaretColor(Color.white);
+        txtRespDCrearPreg.setCaretColor(Color.white);
+
+        txtPregunta.setCaretColor(Color.white);
+        /*Formulario preguntas*/
     }
 
     private void responder(String letra, JLabel lblResp) {
@@ -261,63 +525,57 @@ public class App extends javax.swing.JFrame {
             lblResp.setBackground(colorLetras);
             yaJugo = true;
 
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    // Pause por n segundos mientras se sabe la respuesta correcta
-                    for (int i = 0; i < segundosPause; i++) {
+            new Thread(() -> {
+                // Pause por n segundos mientras se sabe la respuesta correcta
+                for (int i = 0; i < segundosPause; i++) {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                // Pause por n segundos mientras se sabe la respuesta correcta
+                
+                Respuesta correcta = preguntaActual.getRespuestaCorrecta();
+                boolean isRespCor = preguntaActual.isRespuestaCorrecta(letra);
+                JLabel lblRespCorrecta;
+                Color color;
+                
+                if (isRespCor) {
+                    lblRespCorrecta = lblResp;
+                    color = colorLetras;
+                } else {
+                    color = colorFondo;
+                    switch (correcta.getLetra()) {
+                        case "a":
+                            lblRespCorrecta = lblRespA;
+                            break;
+                        case "b":
+                            lblRespCorrecta = lblRespB;
+                            break;
+                        case "c":
+                            lblRespCorrecta = lblRespC;
+                            break;
+                        default:
+                            lblRespCorrecta = lblRespD;
+                    }
+                }
+                
+                // Hilo de animación
+                new Thread(() -> {
+                    for (int i = 0; i < 3; i++) {
                         try {
-                            Thread.sleep(1000);
+                            if (i % 2 == 0) {
+                                lblRespCorrecta.setBackground(colorCorrecta);
+                            } else {
+                                lblRespCorrecta.setBackground(color);
+                            }
+                            Thread.sleep(100);
                         } catch (InterruptedException ex) {
                             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
-                    // Pause por n segundos mientras se sabe la respuesta correcta
-                    
-                    Respuesta correcta = p.getRespuestaCorrecta();
-                    boolean isRespCor = p.isRespuestaCorrecta(letra);
-                    JLabel lblRespCorrecta;
-                    Color color;
-                    
-                    if(isRespCor){
-                        lblRespCorrecta = lblResp;
-                        color = colorLetras;
-                    }else{
-                        color = colorFondo;
-                        switch(correcta.getLetra()){
-                            case "a":
-                                lblRespCorrecta = lblRespA;
-                                break;
-                            case "b":
-                                lblRespCorrecta = lblRespB;
-                                break;
-                            case "c":
-                                lblRespCorrecta = lblRespC;
-                                break;
-                            default:
-                                lblRespCorrecta = lblRespD;
-                        }
-                    }
-                    
-                    // Hilo de animación
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            for (int i = 0; i < 3; i++) {
-                                try {
-                                    if(i % 2 == 0){
-                                        lblRespCorrecta.setBackground(colorCorrecta);
-                                    }else{
-                                        lblRespCorrecta.setBackground(color);
-                                    }
-                                    Thread.sleep(100);
-                                } catch (InterruptedException ex) {
-                                    Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-                                }
-                            }
-                        }
-                    }).start();
-                }
+                }).start();
             }).start();
         }
     }
@@ -329,5 +587,34 @@ public class App extends javax.swing.JFrame {
         lblRespB.setText(p.getRespuesta("b").getValor());
         lblRespC.setText(p.getRespuesta("c").getValor());
         lblRespD.setText(p.getRespuesta("d").getValor());
+    }
+
+    private void procesarRespuestaCorrecta(String letra) {
+        letraRespuestaCorrecta = letra;
+        switch (letra) {
+            case "a":
+                txtRespACrearPreg.setBackground(colorCorrecta);
+                txtRespBCrearPreg.setBackground(colorFondoPreguntas);
+                txtRespCCrearPreg.setBackground(colorFondoPreguntas);
+                txtRespDCrearPreg.setBackground(colorFondoPreguntas);
+                break;
+            case "b":
+                txtRespACrearPreg.setBackground(colorFondoPreguntas);
+                txtRespBCrearPreg.setBackground(colorCorrecta);
+                txtRespCCrearPreg.setBackground(colorFondoPreguntas);
+                txtRespDCrearPreg.setBackground(colorFondoPreguntas);
+                break;
+            case "c":
+                txtRespACrearPreg.setBackground(colorFondoPreguntas);
+                txtRespBCrearPreg.setBackground(colorFondoPreguntas);
+                txtRespCCrearPreg.setBackground(colorCorrecta);
+                txtRespDCrearPreg.setBackground(colorFondoPreguntas);
+                break;
+            default:
+                txtRespACrearPreg.setBackground(colorFondoPreguntas);
+                txtRespBCrearPreg.setBackground(colorFondoPreguntas);
+                txtRespCCrearPreg.setBackground(colorFondoPreguntas);
+                txtRespDCrearPreg.setBackground(colorCorrecta);
+        }
     }
 }

@@ -1,9 +1,10 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Pregunta {
+public class Pregunta implements Serializable{
     private String valor;
     private List<Respuesta> respuestas;
 
@@ -35,12 +36,12 @@ public class Pregunta {
     }
     
     public boolean isRespuestaCorrecta(String letra){
-        return getRespuesta(letra).isCorrecto();
+        return getRespuesta(letra).isCorrecta();
     }
     
     public Respuesta getRespuestaCorrecta(){
         for (Respuesta res : respuestas) {
-            if(res.isCorrecto()){
+            if(res.isCorrecta()){
                 return res;
             }
         }
