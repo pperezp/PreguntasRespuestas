@@ -62,5 +62,16 @@ public class Pregunta implements Serializable{
         this.respuestas.add(respuesta);
     }
     
+    public void reemplazar(Pregunta nueva){
+        this.respuestaCorrecta = nueva.getRespuestaCorrecta();
+        this.respuestas = nueva.getRespuestas();
+        this.valor = nueva.getValor();
+    }
+
+    @Override
+    public String toString() {
+        return valor;
+    }
+    
     
 }

@@ -18,6 +18,7 @@ import model.Pregunta;
 import model.Reproductor;
 import model.Respuesta;
 import model.Rules;
+import model.listModel.LMPregunta;
 
 public class App extends javax.swing.JFrame {
 
@@ -28,6 +29,7 @@ public class App extends javax.swing.JFrame {
     private Juego juego;
     private int indexPregunta;
     private Reproductor hiloMusicaPrincipal;
+    private LMPregunta lmPregunta;
 
     public App() {
         initComponents();
@@ -89,6 +91,9 @@ public class App extends javax.swing.JFrame {
         txtRespBCrearPreg = new javax.swing.JTextField();
         txtRespDCrearPreg = new javax.swing.JTextField();
         btnRegistrarPregunta = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listaPreguntas = new javax.swing.JList();
+        btnCancelar = new javax.swing.JButton();
         panelFondo = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         panelJuego = new javax.swing.JPanel();
@@ -170,6 +175,21 @@ public class App extends javax.swing.JFrame {
             }
         });
 
+        listaPreguntas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                listaPreguntasMouseReleased(evt);
+            }
+        });
+        jScrollPane1.setViewportView(listaPreguntas);
+
+        btnCancelar.setFont(new java.awt.Font("Dialog", 1, 30)); // NOI18N
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelFondoCrearPreguntasLayout = new javax.swing.GroupLayout(panelFondoCrearPreguntas);
         panelFondoCrearPreguntas.setLayout(panelFondoCrearPreguntasLayout);
         panelFondoCrearPreguntasLayout.setHorizontalGroup(
@@ -177,8 +197,6 @@ public class App extends javax.swing.JFrame {
             .addGroup(panelFondoCrearPreguntasLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelFondoCrearPreguntasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnRegistrarPregunta, javax.swing.GroupLayout.DEFAULT_SIZE, 768, Short.MAX_VALUE)
-                    .addComponent(txtPregunta)
                     .addGroup(panelFondoCrearPreguntasLayout.createSequentialGroup()
                         .addGroup(panelFondoCrearPreguntasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lblCCrearPreg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -190,38 +208,48 @@ public class App extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelFondoCrearPreguntasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lblDCrearPreg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblBCrearPreg))
+                            .addComponent(lblBCrearPreg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelFondoCrearPreguntasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtRespBCrearPreg)
-                            .addComponent(txtRespDCrearPreg))))
+                            .addComponent(txtRespDCrearPreg)))
+                    .addComponent(txtPregunta)
+                    .addComponent(btnRegistrarPregunta, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         panelFondoCrearPreguntasLayout.setVerticalGroup(
             panelFondoCrearPreguntasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelFondoCrearPreguntasLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtPregunta, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelFondoCrearPreguntasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelFondoCrearPreguntasLayout.createSequentialGroup()
-                        .addGroup(panelFondoCrearPreguntasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtRespACrearPreg)
-                            .addComponent(lblACrearPreg, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE))
+                        .addComponent(txtPregunta, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelFondoCrearPreguntasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblCCrearPreg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtRespCCrearPreg, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)))
-                    .addGroup(panelFondoCrearPreguntasLayout.createSequentialGroup()
-                        .addGroup(panelFondoCrearPreguntasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtRespBCrearPreg)
-                            .addComponent(lblBCrearPreg, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(panelFondoCrearPreguntasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelFondoCrearPreguntasLayout.createSequentialGroup()
+                                .addGroup(panelFondoCrearPreguntasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtRespACrearPreg)
+                                    .addComponent(lblACrearPreg, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(panelFondoCrearPreguntasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(lblCCrearPreg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtRespCCrearPreg, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)))
+                            .addGroup(panelFondoCrearPreguntasLayout.createSequentialGroup()
+                                .addGroup(panelFondoCrearPreguntasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtRespBCrearPreg, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblBCrearPreg, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(panelFondoCrearPreguntasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtRespDCrearPreg, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
+                                    .addComponent(lblDCrearPreg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelFondoCrearPreguntasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblDCrearPreg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtRespDCrearPreg, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnRegistrarPregunta, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnRegistrarPregunta, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
         );
 
@@ -462,6 +490,9 @@ public class App extends javax.swing.JFrame {
     }//GEN-LAST:event_lblRespBMouseReleased
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        lmPregunta = new LMPregunta(juego.getPreguntas());
+        listaPreguntas.setModel(lmPregunta);
+
         formCrearPregunta.setBounds(0, 0, 800, 600);
         formCrearPregunta.setLocationRelativeTo(null);
         formCrearPregunta.setVisible(true);
@@ -485,31 +516,21 @@ public class App extends javax.swing.JFrame {
 
     private void btnRegistrarPreguntaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarPreguntaActionPerformed
         if (letraRespuestaCorrecta != null) {
-            Pregunta p = new Pregunta(txtPregunta.getText().trim());
+            Pregunta p = getPreguntaFromFormulario();
+            if (btnRegistrarPregunta.getText().equalsIgnoreCase("registrar")) {
+                // registrar
+                juego.addPregunta(p);
 
-            p.addRespuesta(new Respuesta("a", txtRespACrearPreg.getText(), letraRespuestaCorrecta.equals("a")));
-            p.addRespuesta(new Respuesta("b", txtRespBCrearPreg.getText(), letraRespuestaCorrecta.equals("b")));
-            p.addRespuesta(new Respuesta("c", txtRespCCrearPreg.getText(), letraRespuestaCorrecta.equals("c")));
-            p.addRespuesta(new Respuesta("d", txtRespDCrearPreg.getText(), letraRespuestaCorrecta.equals("d")));
-
-            juego.addPregunta(p);
-
+                letraRespuestaCorrecta = null;
+            } else {
+                // modificar
+                btnRegistrarPregunta.setText("Registrar");
+                juego.modificarPregunta(p, listaPreguntas.getSelectedIndex());
+            }
             /*Limpieza de formulario*/
-            txtPregunta.setText(null);
-            txtRespACrearPreg.setText(null);
-            txtRespBCrearPreg.setText(null);
-            txtRespCCrearPreg.setText(null);
-            txtRespDCrearPreg.setText(null);
-
-            txtRespACrearPreg.setBackground(Rules.COLOR_FONDO_PREGUNTAS);
-            txtRespBCrearPreg.setBackground(Rules.COLOR_FONDO_PREGUNTAS);
-            txtRespCCrearPreg.setBackground(Rules.COLOR_FONDO_PREGUNTAS);
-            txtRespDCrearPreg.setBackground(Rules.COLOR_FONDO_PREGUNTAS);
-
-            txtPregunta.requestFocus();
+            limpiarFormularioCrearPreguntas();
             /*Limpieza de formulario*/
-
-            letraRespuestaCorrecta = null;
+            listaPreguntas.updateUI();
         } else {
             JOptionPane.showMessageDialog(formCrearPregunta, "Escoja una respuesta correcta");
         }
@@ -538,6 +559,24 @@ public class App extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formWindowClosing
 
+    private void listaPreguntasMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaPreguntasMouseReleased
+        Pregunta p = (Pregunta) listaPreguntas.getSelectedValue();
+        txtPregunta.setText(p.getValor());
+
+        txtRespACrearPreg.setText(p.getRespuesta("a").getValor());
+        txtRespBCrearPreg.setText(p.getRespuesta("b").getValor());
+        txtRespCCrearPreg.setText(p.getRespuesta("c").getValor());
+        txtRespDCrearPreg.setText(p.getRespuesta("d").getValor());
+
+        procesarRespuestaCorrecta(p.getRespuestaCorrecta().getLetra());
+        btnRegistrarPregunta.setText("Modificar");
+    }//GEN-LAST:event_listaPreguntasMouseReleased
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        limpiarFormularioCrearPreguntas();
+        btnRegistrarPregunta.setText("Registrar");
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(() -> {
@@ -546,6 +585,7 @@ public class App extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnRegistrarPregunta;
     private javax.swing.JFrame formCrearPregunta;
     private javax.swing.JLabel jLabel1;
@@ -554,6 +594,7 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JLabel lblA;
     private javax.swing.JLabel lblACrearPreg;
@@ -570,6 +611,7 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JLabel lblRespB;
     private javax.swing.JLabel lblRespC;
     private javax.swing.JLabel lblRespD;
+    private javax.swing.JList listaPreguntas;
     private javax.swing.JPanel panelFondo;
     private javax.swing.JPanel panelFondoCrearPreguntas;
     private javax.swing.JPanel panelJuego;
@@ -624,6 +666,8 @@ public class App extends javax.swing.JFrame {
 
         btnRegistrarPregunta.setBackground(Rules.COLOR_CORRECTA);
         btnRegistrarPregunta.setForeground(Color.white);
+        btnCancelar.setBackground(Rules.COLOR_INCORRECTA);
+        btnCancelar.setForeground(Color.white);
 
         txtRespACrearPreg.setCaretColor(Color.white);
         txtRespBCrearPreg.setCaretColor(Color.white);
@@ -774,7 +818,7 @@ public class App extends javax.swing.JFrame {
     }
 
     private void reproducir(String cancion, boolean infinito) {
-        if(hiloMusicaPrincipal != null){
+        if (hiloMusicaPrincipal != null) {
             hiloMusicaPrincipal.stopCancion();
             hiloMusicaPrincipal.stop();
         }
@@ -782,5 +826,31 @@ public class App extends javax.swing.JFrame {
         hiloMusicaPrincipal.setInfinito(infinito);
         hiloMusicaPrincipal.setCancion(cancion);
         hiloMusicaPrincipal.start();
+    }
+
+    private void limpiarFormularioCrearPreguntas() {
+        txtPregunta.setText(null);
+        txtRespACrearPreg.setText(null);
+        txtRespBCrearPreg.setText(null);
+        txtRespCCrearPreg.setText(null);
+        txtRespDCrearPreg.setText(null);
+
+        txtRespACrearPreg.setBackground(Rules.COLOR_FONDO_PREGUNTAS);
+        txtRespBCrearPreg.setBackground(Rules.COLOR_FONDO_PREGUNTAS);
+        txtRespCCrearPreg.setBackground(Rules.COLOR_FONDO_PREGUNTAS);
+        txtRespDCrearPreg.setBackground(Rules.COLOR_FONDO_PREGUNTAS);
+
+        txtPregunta.requestFocus();
+    }
+
+    private Pregunta getPreguntaFromFormulario() {
+        Pregunta p = new Pregunta(txtPregunta.getText().trim());
+
+        p.addRespuesta(new Respuesta("a", txtRespACrearPreg.getText(), letraRespuestaCorrecta.equals("a")));
+        p.addRespuesta(new Respuesta("b", txtRespBCrearPreg.getText(), letraRespuestaCorrecta.equals("b")));
+        p.addRespuesta(new Respuesta("c", txtRespCCrearPreg.getText(), letraRespuestaCorrecta.equals("c")));
+        p.addRespuesta(new Respuesta("d", txtRespDCrearPreg.getText(), letraRespuestaCorrecta.equals("d")));
+
+        return p;
     }
 }

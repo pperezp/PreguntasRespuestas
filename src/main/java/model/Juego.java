@@ -78,4 +78,8 @@ public class Juego implements Serializable{
         
         return "";
     }
+
+    public void modificarPregunta(Pregunta p, int index) {
+        preguntas.get(index).reemplazar(p);
+    }
 }

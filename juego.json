@@ -1,6 +1,6 @@
 {
   "preguntas" : [ {
-    "valor" : "¿Cúal es la teleserie más existosa de Canal 13?",
+    "valor" : "¿Cúal es la teleserie más exitosa de Canal 13 del 2018?",
     "respuestas" : [ {
       "letra" : "a",
       "valor" : "Machos",
@@ -24,7 +24,7 @@
       "correcta" : true
     }
   }, {
-    "valor" : "¿Cuanto es 2+2?",
+    "valor" : "¿Cuanto es el resultado de 2+2?",
     "respuestas" : [ {
       "letra" : "a",
       "valor" : "1",
@@ -35,15 +35,15 @@
       "correcta" : false
     }, {
       "letra" : "c",
-      "valor" : "3",
-      "correcta" : false
-    }, {
-      "letra" : "d",
       "valor" : "4",
       "correcta" : true
+    }, {
+      "letra" : "d",
+      "valor" : "1",
+      "correcta" : false
     } ],
     "respuestaCorrecta" : {
-      "letra" : "d",
+      "letra" : "c",
       "valor" : "4",
       "correcta" : true
     }
@@ -95,7 +95,127 @@
       "valor" : "Un Físico",
       "correcta" : true
     }
+  }, {
+    "valor" : "Pregunta 1",
+    "respuestas" : [ {
+      "letra" : "a",
+      "valor" : "aaaa",
+      "correcta" : false
+    }, {
+      "letra" : "b",
+      "valor" : "bbbb",
+      "correcta" : false
+    }, {
+      "letra" : "c",
+      "valor" : "cccc",
+      "correcta" : false
+    }, {
+      "letra" : "d",
+      "valor" : "dddd",
+      "correcta" : true
+    } ],
+    "respuestaCorrecta" : {
+      "letra" : "d",
+      "valor" : "dddd",
+      "correcta" : true
+    }
+  }, {
+    "valor" : "Pregunta 2",
+    "respuestas" : [ {
+      "letra" : "a",
+      "valor" : "asd",
+      "correcta" : false
+    }, {
+      "letra" : "b",
+      "valor" : "asd",
+      "correcta" : true
+    }, {
+      "letra" : "c",
+      "valor" : "asd",
+      "correcta" : false
+    }, {
+      "letra" : "d",
+      "valor" : "asdasd",
+      "correcta" : false
+    } ],
+    "respuestaCorrecta" : {
+      "letra" : "b",
+      "valor" : "asd",
+      "correcta" : true
+    }
+  }, {
+    "valor" : "Pregunta 3",
+    "respuestas" : [ {
+      "letra" : "a",
+      "valor" : "asdasd",
+      "correcta" : false
+    }, {
+      "letra" : "b",
+      "valor" : "asdasd",
+      "correcta" : false
+    }, {
+      "letra" : "c",
+      "valor" : "asdasd",
+      "correcta" : false
+    }, {
+      "letra" : "d",
+      "valor" : "asdasd",
+      "correcta" : true
+    } ],
+    "respuestaCorrecta" : {
+      "letra" : "d",
+      "valor" : "asdasd",
+      "correcta" : true
+    }
+  }, {
+    "valor" : "Pregunta 4",
+    "respuestas" : [ {
+      "letra" : "a",
+      "valor" : "aaa",
+      "correcta" : false
+    }, {
+      "letra" : "b",
+      "valor" : "aa",
+      "correcta" : true
+    }, {
+      "letra" : "c",
+      "valor" : "aaa",
+      "correcta" : false
+    }, {
+      "letra" : "d",
+      "valor" : "aa",
+      "correcta" : false
+    } ],
+    "respuestaCorrecta" : {
+      "letra" : "b",
+      "valor" : "aa",
+      "correcta" : true
+    }
+  }, {
+    "valor" : "asd",
+    "respuestas" : [ {
+      "letra" : "a",
+      "valor" : "asd",
+      "correcta" : false
+    }, {
+      "letra" : "b",
+      "valor" : "asd",
+      "correcta" : true
+    }, {
+      "letra" : "c",
+      "valor" : "asd",
+      "correcta" : false
+    }, {
+      "letra" : "d",
+      "valor" : "asd",
+      "correcta" : false
+    } ],
+    "respuestaCorrecta" : {
+      "letra" : "b",
+      "valor" : "asd",
+      "correcta" : true
+    }
   } ],
-  "contCorrectas" : 1,
-  "contIncorrectas" : 1
+  "contCorrectas" : 0,
+  "contIncorrectas" : 0
 }
