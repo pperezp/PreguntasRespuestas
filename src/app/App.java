@@ -7,6 +7,8 @@ package app;
 
 import java.awt.Color;
 import javax.swing.JLabel;
+import model.Pregunta;
+import model.Respuesta;
 
 public class App extends javax.swing.JFrame {
 
@@ -26,7 +28,15 @@ public class App extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         yaJugo = false;
         
-        //lblPregunta.setText("<html>¿Cómo se llama la primera región de Chile?</html>");
+        // Test Pregunta
+        Pregunta p = new Pregunta("¿Cómo se llama la teleserie más famosa de Canal 13 en 2018?");
+        
+        p.addRespuesta(new Respuesta("a", "Lola", false));
+        p.addRespuesta(new Respuesta("b", "Pacto de Sangre", true));
+        p.addRespuesta(new Respuesta("c", "Machos", false));
+        p.addRespuesta(new Respuesta("d", "31 Minutos", false));
+        
+        setPreguntaInGUI(p);
     }
 
     @SuppressWarnings("unchecked")
@@ -66,7 +76,7 @@ public class App extends javax.swing.JFrame {
 
         lblRespC.setFont(new java.awt.Font("Dialog", 1, 30)); // NOI18N
         lblRespC.setForeground(new java.awt.Color(255, 255, 255));
-        lblRespC.setText("jLabel2");
+        lblRespC.setText("[resp3]");
         lblRespC.setOpaque(true);
         lblRespC.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
@@ -80,7 +90,7 @@ public class App extends javax.swing.JFrame {
 
         lblRespB.setFont(new java.awt.Font("Dialog", 1, 30)); // NOI18N
         lblRespB.setForeground(new java.awt.Color(255, 255, 255));
-        lblRespB.setText("jLabel2");
+        lblRespB.setText("[resp2]");
         lblRespB.setOpaque(true);
         lblRespB.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
@@ -94,7 +104,7 @@ public class App extends javax.swing.JFrame {
 
         lblRespD.setFont(new java.awt.Font("Dialog", 1, 30)); // NOI18N
         lblRespD.setForeground(new java.awt.Color(255, 255, 255));
-        lblRespD.setText("jLabel2");
+        lblRespD.setText("[resp4]");
         lblRespD.setOpaque(true);
         lblRespD.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
@@ -247,5 +257,14 @@ public class App extends javax.swing.JFrame {
             lblResp.setBackground(colorLetras);
             yaJugo = true;
         }
+    }
+
+    private void setPreguntaInGUI(Pregunta p) {
+        lblPregunta.setText("<html><center>"+p.getValor()+"</center></html>");
+        
+        lblRespA.setText(p.getRespuesta("a").getValor());
+        lblRespB.setText(p.getRespuesta("b").getValor());
+        lblRespC.setText(p.getRespuesta("c").getValor());
+        lblRespD.setText(p.getRespuesta("d").getValor());
     }
 }
