@@ -15,6 +15,14 @@ public class Juego implements Serializable{
         contIncorrectas = 0;
     }
 
+    public void setContCorrectas(int contCorrectas) {
+        this.contCorrectas = contCorrectas;
+    }
+
+    public void setContIncorrectas(int contIncorrectas) {
+        this.contIncorrectas = contIncorrectas;
+    }
+    
     public int getContCorrectas() {
         return contCorrectas;
     }

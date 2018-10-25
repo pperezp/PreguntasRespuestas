@@ -7,26 +7,32 @@ package app;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.Color;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javazoom.jl.decoder.JavaLayerException;
+import javazoom.jl.player.Player;
 import model.Juego;
 import model.Pregunta;
+import model.Reproductor;
 import model.Respuesta;
 import model.Rules;
 
 public class App extends javax.swing.JFrame {
 
-    
     private boolean yaJugo;
     private Pregunta preguntaActual;
     private String letraRespuestaCorrecta; // la utilizo cuando creo una pregunta
-    
 
     private Juego juego;
     private int indexPregunta;
+    private Reproductor hiloMusicaPrincipal;
+    private String nombreCancion;
 
     public App() {
         initComponents();
@@ -55,13 +61,20 @@ public class App extends javax.swing.JFrame {
             try {
                 ObjectMapper mapper = new ObjectMapper();
                 juego = mapper.readValue(new File("juego.json"), Juego.class);
-                System.out.println(juego);
+                juego.setContCorrectas(0);
+                juego.setContIncorrectas(0);
             } catch (IOException ex) {
                 Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } 
-        
+        }
+
         panelJuego.setVisible(false);
+
+        hiloMusicaPrincipal = new Reproductor();
+        hiloMusicaPrincipal.setCancion("main2.mp3");
+        hiloMusicaPrincipal.setInfinito(true);
+        hiloMusicaPrincipal.start();
+
     }
 
     @SuppressWarnings("unchecked")
@@ -507,10 +520,14 @@ public class App extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegistrarPreguntaActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        if(!juego.getPreguntas().isEmpty()){
+        if (!juego.getPreguntas().isEmpty()) {
+            this.nombreCancion = nombreCancion = getClass().getResource("/preguntas.mp3").getPath();;
+
+//            reproducir("preguntas.mp3");
+
             panelJuego.setVisible(true);
             siguientePregunta();
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "No hay preguntas para jugar");
         }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
@@ -518,7 +535,7 @@ public class App extends javax.swing.JFrame {
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         try {
             ObjectMapper om = new ObjectMapper();
-            
+
             om.writerWithDefaultPrettyPrinter().writeValue(new File("juego.json"), juego);
 //            String jsonInString = om.writeValueAsString(juego);
 //            System.out.println(jsonInString);
@@ -627,6 +644,7 @@ public class App extends javax.swing.JFrame {
 
     private void responder(String letra, JLabel lblResp) {
         if (!yaJugo) {
+            reproducir("seleccion_respuesta.mp3", false);
             lblResp.setBackground(Rules.COLOR_LETRAS);
             yaJugo = true;
 
@@ -645,10 +663,12 @@ public class App extends javax.swing.JFrame {
                 Color color;
 
                 if (isRespCor) {
+                    reproducir("correcta.mp3", false);
                     lblRespCorrecta = lblResp;
                     color = Rules.COLOR_LETRAS;
                     juego.aumentarCorrectas();
                 } else {
+                    reproducir("incorrecto.mp3", false);
                     juego.aumentarIncorrectas();
                     color = Rules.COLOR_FONDO;
                     switch (correcta.getLetra()) {
@@ -665,7 +685,7 @@ public class App extends javax.swing.JFrame {
                             lblRespCorrecta = lblRespD;
                     }
                 }
-                
+
                 lblCorrectas.setText(Integer.toString(juego.getContCorrectas()));
                 lblIncorrectas.setText(Integer.toString(juego.getContIncorrectas()));
 
@@ -683,14 +703,14 @@ public class App extends javax.swing.JFrame {
                             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
-                    
+
                     // Si parpadeos es par, no quedo con el fondo de la respuesta correcta
-                    if(Rules.PARPADEOS % 2 == 0){
+                    if (Rules.PARPADEOS % 2 == 0) {
                         lblRespCorrecta.setBackground(Rules.COLOR_CORRECTA);
                     }
-                    
+
                     try {
-                        Thread.sleep(Rules.PAUSE_ENTRE_PREGUNTAS*1000);
+                        Thread.sleep(Rules.PAUSE_ENTRE_PREGUNTAS * 1000);
                         siguientePregunta();
                     } catch (InterruptedException ex) {
                         Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
@@ -706,7 +726,7 @@ public class App extends javax.swing.JFrame {
         lblRespB.setBackground(Rules.COLOR_FONDO_PREGUNTAS);
         lblRespC.setBackground(Rules.COLOR_FONDO_PREGUNTAS);
         lblRespD.setBackground(Rules.COLOR_FONDO_PREGUNTAS);
-        
+
         lblPregunta.setText("<html><center>" + p.getValor() + "</center></html>");
 
         lblRespA.setText(p.getRespuesta("a").getValor());
@@ -749,9 +769,24 @@ public class App extends javax.swing.JFrame {
 
         if (preguntaActual != null) {
             indexPregunta++;
+            reproducir("preguntas.mp3", true);
             setPreguntaInGUI(preguntaActual);
-        }else{
-            JOptionPane.showMessageDialog(this, "No quedan más preguntas");
+        } else {
+            reproducir("main.mp3", true);
+            JOptionPane.showMessageDialog(this, "Gracias por jugar!");
+            panelJuego.setVisible(false);
+            indexPregunta = 0;
+            juego.setContCorrectas(0);
+            juego.setContIncorrectas(0);
         }
+    }
+
+    private void reproducir(String cancion, boolean infinito) {
+        hiloMusicaPrincipal.stopCancion();
+        hiloMusicaPrincipal.stop();
+        hiloMusicaPrincipal = new Reproductor();
+        hiloMusicaPrincipal.setInfinito(infinito);
+        hiloMusicaPrincipal.setCancion(cancion);
+        hiloMusicaPrincipal.start();
     }
 }

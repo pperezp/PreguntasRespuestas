@@ -71,7 +71,31 @@
       "valor" : "18",
       "correcta" : true
     }
+  }, {
+    "valor" : "¿Quién fue Albert Einstein?",
+    "respuestas" : [ {
+      "letra" : "a",
+      "valor" : "Un Cineasta",
+      "correcta" : false
+    }, {
+      "letra" : "b",
+      "valor" : "Un Pintor",
+      "correcta" : false
+    }, {
+      "letra" : "c",
+      "valor" : "Un Actor",
+      "correcta" : false
+    }, {
+      "letra" : "d",
+      "valor" : "Un Físico",
+      "correcta" : true
+    } ],
+    "respuestaCorrecta" : {
+      "letra" : "d",
+      "valor" : "Un Físico",
+      "correcta" : true
+    }
   } ],
-  "contCorrectas" : 1,
-  "contIncorrectas" : 2
+  "contCorrectas" : 0,
+  "contIncorrectas" : 1
 }
