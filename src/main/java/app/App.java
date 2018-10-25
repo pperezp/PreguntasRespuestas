@@ -24,6 +24,7 @@ public class App extends javax.swing.JFrame {
     private final String VERSION_APP = "0.1a";
     
     private Juego juego;
+    private int indexPregunta;
     
     public App() {
         initComponents();
@@ -44,16 +45,17 @@ public class App extends javax.swing.JFrame {
         formCrearPregunta.setTitle(TITULO_APP+" - "+VERSION_APP);
         
         juego = new Juego();
+        indexPregunta = 0;
 
-        // Test Pregunta
-//        p = new Pregunta("¿Cómo se llama la teleserie más famosa de Canal 13 en 2018?");
+//         Test Pregunta
+//        preguntaActual = new Pregunta("¿Cómo se llama la teleserie más famosa de Canal 13 en 2018?");
 //
-//        p.addRespuesta(new Respuesta("a", "Lola", false));
-//        p.addRespuesta(new Respuesta("b", "Pacto de Sangre", true));
-//        p.addRespuesta(new Respuesta("c", "Machos", false));
-//        p.addRespuesta(new Respuesta("d", "31 Minutos", false));
+//        preguntaActual.addRespuesta(new Respuesta("a", "Lola", false));
+//        preguntaActual.addRespuesta(new Respuesta("b", "Pacto de Sangre", true));
+//        preguntaActual.addRespuesta(new Respuesta("c", "Machos", false));
+//        preguntaActual.addRespuesta(new Respuesta("d", "31 Minutos", false));
 //
-//        setPreguntaInGUI(p);
+//        setPreguntaInGUI(preguntaActual);
     }
 
     @SuppressWarnings("unchecked")
@@ -85,6 +87,8 @@ public class App extends javax.swing.JFrame {
         lblPregunta = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
@@ -217,7 +221,7 @@ public class App extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/images/logo.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logo.png"))); // NOI18N
 
         lblRespA.setFont(new java.awt.Font("Dialog", 1, 30)); // NOI18N
         lblRespA.setForeground(new java.awt.Color(255, 255, 255));
@@ -338,7 +342,17 @@ public class App extends javax.swing.JFrame {
 
         jMenu1.setText("Archivo");
 
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK));
+        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_J, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem2.setText("Jugar!");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
+        jMenu1.add(jSeparator1);
+
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem1.setText("Crear Pregunta");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -432,6 +446,10 @@ public class App extends javax.swing.JFrame {
         /*Limpieza de formulario*/
     }//GEN-LAST:event_btnRegistrarPreguntaActionPerformed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(() -> {
@@ -447,6 +465,8 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JLabel lblA;
     private javax.swing.JLabel lblACrearPreg;
     private javax.swing.JLabel lblB;

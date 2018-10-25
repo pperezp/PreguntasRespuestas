@@ -1,2 +1,5 @@
 /build/
 /dist/
+/PyR_Maven/nbproject/
+/PyR_Maven/target/
+/target/
