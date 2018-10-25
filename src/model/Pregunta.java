@@ -34,6 +34,20 @@ public class Pregunta {
         return null;
     }
     
+    public boolean isRespuestaCorrecta(String letra){
+        return getRespuesta(letra).isCorrecto();
+    }
+    
+    public Respuesta getRespuestaCorrecta(){
+        for (Respuesta res : respuestas) {
+            if(res.isCorrecto()){
+                return res;
+            }
+        }
+        
+        return null;
+    }
+    
     public void addRespuesta(Respuesta respuesta) {
         this.respuestas.add(respuesta);
     }

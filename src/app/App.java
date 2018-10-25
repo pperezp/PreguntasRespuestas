@@ -6,6 +6,8 @@
 package app;
 
 import java.awt.Color;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JLabel;
 import model.Pregunta;
 import model.Respuesta;
@@ -15,27 +17,33 @@ public class App extends javax.swing.JFrame {
     private Color colorFondo;
     private Color colorLetras;
     private Color colorFondoPreguntas;
+    private Color colorCorrecta;
+    private int segundosPause;
     private boolean yaJugo;
-    
+    private Pregunta p;
+
     public App() {
         initComponents();
+
+        segundosPause = 2;
         
         colorFondo = Color.decode("#000434");
         colorLetras = Color.decode("#FFB900");
         colorFondoPreguntas = Color.decode("#3B2F83");
-        
+        colorCorrecta = Color.decode("#00B500");
+
         initColores();
         this.setLocationRelativeTo(null);
         yaJugo = false;
-        
+
         // Test Pregunta
-        Pregunta p = new Pregunta("¿Cómo se llama la teleserie más famosa de Canal 13 en 2018?");
-        
+        p = new Pregunta("¿Cómo se llama la teleserie más famosa de Canal 13 en 2018?");
+
         p.addRespuesta(new Respuesta("a", "Lola", false));
         p.addRespuesta(new Respuesta("b", "Pacto de Sangre", true));
         p.addRespuesta(new Respuesta("c", "Machos", false));
         p.addRespuesta(new Respuesta("d", "31 Minutos", false));
-        
+
         setPreguntaInGUI(p);
     }
 
@@ -192,19 +200,19 @@ public class App extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblRespAMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRespAMouseReleased
-        responder(lblRespA);
+        responder("a",lblRespA);
     }//GEN-LAST:event_lblRespAMouseReleased
 
     private void lblRespCMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRespCMouseReleased
-        responder(lblRespC);
+        responder("b",lblRespC);
     }//GEN-LAST:event_lblRespCMouseReleased
 
     private void lblRespDMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRespDMouseReleased
-        responder(lblRespD);
+        responder("c",lblRespD);
     }//GEN-LAST:event_lblRespDMouseReleased
 
     private void lblRespBMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRespBMouseReleased
-        responder(lblRespB);
+        responder("d",lblRespB);
     }//GEN-LAST:event_lblRespBMouseReleased
 
     public static void main(String args[]) {
@@ -233,35 +241,68 @@ public class App extends javax.swing.JFrame {
 
     private void initColores() {
         panelFondo.setBackground(colorFondo);
-        
+
         lblA.setBackground(colorFondoPreguntas);
         lblB.setBackground(colorFondoPreguntas);
         lblC.setBackground(colorFondoPreguntas);
         lblD.setBackground(colorFondoPreguntas);
-        
+
         lblA.setForeground(colorLetras);
         lblB.setForeground(colorLetras);
         lblC.setForeground(colorLetras);
         lblD.setForeground(colorLetras);
-        
+
         lblRespA.setBackground(colorFondoPreguntas);
         lblRespB.setBackground(colorFondoPreguntas);
         lblRespC.setBackground(colorFondoPreguntas);
         lblRespD.setBackground(colorFondoPreguntas);
-        
+
         lblPregunta.setBackground(colorFondoPreguntas);
     }
 
-    private void responder(JLabel lblResp) {
-        if(!yaJugo){
+    private void responder(String letra, JLabel lblResp) {
+        if (!yaJugo) {
             lblResp.setBackground(colorLetras);
             yaJugo = true;
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    for (int i = 0; i < segundosPause; i++) {
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                    
+                    if(p.isRespuestaCorrecta(letra)){
+                        lblResp.setBackground(colorCorrecta);
+                    }else{
+                        Respuesta correcta = p.getRespuestaCorrecta();
+                        
+                        switch(correcta.getLetra()){
+                            case "a":
+                                lblRespA.setBackground(colorCorrecta);
+                                break;
+                            case "b":
+                                lblRespB.setBackground(colorCorrecta);
+                                break;
+                            case "c":
+                                lblRespC.setBackground(colorCorrecta);
+                                break;
+                            default:
+                                lblRespD.setBackground(colorCorrecta);
+                        }
+                    }
+                }
+            }).start();
         }
     }
 
     private void setPreguntaInGUI(Pregunta p) {
-        lblPregunta.setText("<html><center>"+p.getValor()+"</center></html>");
-        
+        lblPregunta.setText("<html><center>" + p.getValor() + "</center></html>");
+
         lblRespA.setText(p.getRespuesta("a").getValor());
         lblRespB.setText(p.getRespuesta("b").getValor());
         lblRespC.setText(p.getRespuesta("c").getValor());
