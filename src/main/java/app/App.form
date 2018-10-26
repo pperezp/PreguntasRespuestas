@@ -47,12 +47,16 @@
                               </Group>
                           </Group>
                           <Component id="txtPregunta" alignment="0" max="32767" attributes="0"/>
-                          <Component id="btnRegistrarPregunta" alignment="0" pref="572" max="32767" attributes="0"/>
-                          <Component id="btnCancelar" alignment="1" max="32767" attributes="0"/>
+                          <Component id="btnRegistrarPregunta" alignment="0" pref="575" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="btnCancelar" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" max="-2" attributes="0"/>
+                              <Component id="btnEliminar" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="jScrollPane1" min="-2" pref="288" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -91,7 +95,10 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="btnRegistrarPregunta" min="-2" pref="57" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="btnCancelar" min="-2" pref="57" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="btnCancelar" alignment="3" min="-2" pref="57" max="-2" attributes="0"/>
+                                  <Component id="btnEliminar" alignment="3" min="-2" pref="57" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                           <Component id="jScrollPane1" max="32767" attributes="0"/>
                       </Group>
@@ -242,6 +249,17 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnEliminar">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Dialog" size="30" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Eliminar"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEliminarActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

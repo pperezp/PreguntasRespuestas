@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import model.Juego;
@@ -72,6 +73,8 @@ public class App extends javax.swing.JFrame {
 //        hiloMusicaPrincipal.setInfinito(true);
 //        hiloMusicaPrincipal.start();
         reproducir(Rules.MP3_MAIN, true);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        formCrearPregunta.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
     }
 
@@ -94,6 +97,7 @@ public class App extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         listaPreguntas = new javax.swing.JList();
         btnCancelar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
         panelFondo = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         panelJuego = new javax.swing.JPanel();
@@ -190,6 +194,14 @@ public class App extends javax.swing.JFrame {
             }
         });
 
+        btnEliminar.setFont(new java.awt.Font("Dialog", 1, 30)); // NOI18N
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelFondoCrearPreguntasLayout = new javax.swing.GroupLayout(panelFondoCrearPreguntas);
         panelFondoCrearPreguntas.setLayout(panelFondoCrearPreguntasLayout);
         panelFondoCrearPreguntasLayout.setHorizontalGroup(
@@ -214,8 +226,11 @@ public class App extends javax.swing.JFrame {
                             .addComponent(txtRespBCrearPreg)
                             .addComponent(txtRespDCrearPreg)))
                     .addComponent(txtPregunta)
-                    .addComponent(btnRegistrarPregunta, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)
-                    .addComponent(btnCancelar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnRegistrarPregunta, javax.swing.GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE)
+                    .addGroup(panelFondoCrearPreguntasLayout.createSequentialGroup()
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -248,7 +263,9 @@ public class App extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnRegistrarPregunta, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(panelFondoCrearPreguntasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane1))
                 .addContainerGap())
         );
@@ -520,8 +537,6 @@ public class App extends javax.swing.JFrame {
             if (btnRegistrarPregunta.getText().equalsIgnoreCase("registrar")) {
                 // registrar
                 juego.addPregunta(p);
-
-                letraRespuestaCorrecta = null;
             } else {
                 // modificar
                 btnRegistrarPregunta.setText("Registrar");
@@ -530,6 +545,7 @@ public class App extends javax.swing.JFrame {
             /*Limpieza de formulario*/
             limpiarFormularioCrearPreguntas();
             /*Limpieza de formulario*/
+            letraRespuestaCorrecta = null;
             listaPreguntas.updateUI();
         } else {
             JOptionPane.showMessageDialog(formCrearPregunta, "Escoja una respuesta correcta");
@@ -538,6 +554,8 @@ public class App extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         if (!juego.getPreguntas().isEmpty()) {
+            lblCorrectas.setText("0");
+            lblIncorrectas.setText("0");
             panelJuego.setVisible(true);
             siguientePregunta();
         } else {
@@ -577,6 +595,12 @@ public class App extends javax.swing.JFrame {
         btnRegistrarPregunta.setText("Registrar");
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        juego.eliminarPregunta(listaPreguntas.getSelectedIndex());
+        listaPreguntas.updateUI();
+        limpiarFormularioCrearPreguntas();
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(() -> {
@@ -586,6 +610,7 @@ public class App extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnRegistrarPregunta;
     private javax.swing.JFrame formCrearPregunta;
     private javax.swing.JLabel jLabel1;
@@ -666,7 +691,9 @@ public class App extends javax.swing.JFrame {
 
         btnRegistrarPregunta.setBackground(Rules.COLOR_CORRECTA);
         btnRegistrarPregunta.setForeground(Color.white);
-        btnCancelar.setBackground(Rules.COLOR_INCORRECTA);
+        btnEliminar.setBackground(Rules.COLOR_INCORRECTA);
+        btnEliminar.setForeground(Color.white);
+        btnCancelar.setBackground(Rules.COLOR_CANCELAR);
         btnCancelar.setForeground(Color.white);
 
         txtRespACrearPreg.setCaretColor(Color.white);
@@ -809,7 +836,9 @@ public class App extends javax.swing.JFrame {
             setPreguntaInGUI(preguntaActual);
         } else {
             reproducir(Rules.MP3_MAIN, true);
-            JOptionPane.showMessageDialog(this, "Gracias por jugar!");
+            JOptionPane.showMessageDialog(this, "Gracias por jugar!"
+                    + "\nCorrectas:\t"+juego.getContCorrectas()
+                    + "\nIncorrectas:\t"+juego.getContIncorrectas());
             panelJuego.setVisible(false);
             indexPregunta = 0;
             juego.setContCorrectas(0);

@@ -49,6 +49,10 @@ public class Juego implements Serializable{
         }
         return preguntas.get(index);
     }
+    
+    public void eliminarPregunta(int index){
+        preguntas.remove(index);
+    }
 
     public void addPregunta(Pregunta pregunta) {
         this.preguntas.add(pregunta);

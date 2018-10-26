@@ -27,14 +27,15 @@ public class Reproductor extends Thread{
     @Override
     public void run() {
         try {
-            apl = new Player(new FileInputStream(nombreCancion));
             do{
+                System.out.println(nombreCancion + " - "+infinito);
+                apl = new Player(new FileInputStream(nombreCancion));
                 apl.play();
             }while(infinito);
         } catch (JavaLayerException | FileNotFoundException ex) {
             Logger.getLogger(Reproductor.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println("Hilo player finalizado!");
+        System.out.println("Hilo player finalizado ["+nombreCancion+"]!");
     }
     
     public void stopCancion(){
